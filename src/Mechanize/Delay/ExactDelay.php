@@ -32,4 +32,14 @@ class ExactDelay implements DelayInterface
 	{
 		usleep($this->delay);
 	}
+
+	/**
+	 * Return the length of time used in the last delay
+	 *
+	 * @var int
+	 */
+	public function getLastDelay()
+	{
+		return $this->delay;
+	}
 }

@@ -21,6 +21,13 @@ class RandomDelay implements DelayInterface
 	protected $maximum;
 
 	/**
+	 * Holds the last delay time
+	 *
+	 * @var int
+	 */
+	protected $delayTime = null;
+
+	/**
 	 * Takes a minimum and maximum delay range and sets them
 	 *
 	 * @param float $minimum The minimum delay time in seconds
@@ -39,6 +46,17 @@ class RandomDelay implements DelayInterface
 	 */
 	public function delay()
 	{
-		usleep(rand($this->minimum, $this->maximum));
+		$this->delayTime = rand($this->minimum, $this->maximum);
+		usleep($this->delayTime);
+	}
+
+	/**
+	 * Return the length of time used in the last delay
+	 *
+	 * @var int
+	 */
+	public function getLastDelay()
+	{
+		return $this->delayTime;
 	}
 }

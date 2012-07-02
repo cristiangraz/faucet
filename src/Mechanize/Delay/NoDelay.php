@@ -15,4 +15,14 @@ class NoDelay implements DelayInterface
 	{
 		return;
 	}
+
+	/**
+	 * Return the length of time used in the last delay
+	 *
+	 * @var int
+	 */
+	public function getLastDelay()
+	{
+		return 0;
+	}
 }

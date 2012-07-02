@@ -167,7 +167,7 @@ class Elements
 	public function setLimit($limit)
 	{
 		array_splice($this->elements, 0, count($this->elements) - $limit);
-		$this->_length = count($this->elements);
+		$this->length = count($this->elements);
 		
 		return $this;
 	}
