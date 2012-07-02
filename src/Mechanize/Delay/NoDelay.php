@@ -6,23 +6,23 @@ use Mechanize\DelayInterface;
 
 class NoDelay implements DelayInterface
 {
-	/**
-	 * Does nothing
-	 *
-	 * @return void
-	 */
-	public function delay()
-	{
-		return;
-	}
+    /**
+     * Does nothing
+     *
+     * @return void
+     */
+    public function delay()
+    {
+        return;
+    }
 
-	/**
-	 * Return the length of time used in the last delay
-	 *
-	 * @var int
-	 */
-	public function getLastDelay()
-	{
-		return 0;
-	}
+    /**
+     * Return the length of time used in the last delay
+     *
+     * @var int
+     */
+    public function getLastDelay()
+    {
+        return 0;
+    }
 }
