@@ -324,13 +324,13 @@ class Client
 	}
 
 	/**
-	 * Find any element on the page using an xpath selector but only return the first result
+	 * Convenience method to find any element on the page using an xpath selector but only return the first result
 	 *
 	 * @return Mechanize/Elements
 	 **/
-	public function findSingle($selector)
+	public function findOne($selector = false, $context = false)
 	{
-		return $this->find($selector, 1);
+		return $this->find($selector, 1, $context);
 	}
 
 	/**
@@ -383,7 +383,7 @@ class Client
 	 **/
 	public function getTitle()
 	{
-		return $this->getElements('/html/head/title', 1)->getText();
+		return $this->findOne('/html/head/title')->getText();
 	}
 
 	/**
@@ -393,7 +393,7 @@ class Client
 	 **/
 	public function getLinks()
 	{
-		return $this->getElements('/html/body//a[@href]');
+		return $this->find('/html/body//a[@href]');
 	}
 
 	/**
@@ -403,7 +403,7 @@ class Client
 	 **/
 	public function getImages()
 	{
-		return $this->getElements('/html/body//image[@src]');
+		return $this->find('/html/body//image[@src]');
 	}
 
 	/**
@@ -413,7 +413,7 @@ class Client
 	 **/
 	public function getForms()
 	{
-		return $this->getElements('/html/body//form');
+		return $this->find('/html/body//form');
 	}
 
 	/**
@@ -423,7 +423,7 @@ class Client
 	 **/
 	public function getJavascript()
 	{
-		return $this->getElements('//script[@href]');
+		return $this->find('//script[@href]');
 	}
 
 	/**
@@ -434,7 +434,7 @@ class Client
 	 **/
 	public function getStylesheets()
 	{
-		return $this->getElements('//link[@rel=\'stylesheet\' and @href]');
+		return $this->find('//link[@rel=\'stylesheet\' and @href]');
 	}
 
 	/**
