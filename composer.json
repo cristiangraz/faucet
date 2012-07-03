@@ -1,9 +1,17 @@
 {
 	"name": "cristiangraz/mechanize",
+	"repositories": [
+	    {
+	        "type": "composer",
+	        "url": "http://packages.zendframework.com/"
+	    }
+	],
 	"require": {
-		"guzzle/guzzle": "2.7.2"
+		"guzzle/guzzle": "2.7.2",
+		"zendframework/zend-validator": "2.0.*",
+		"zendframework/zend-filter": "2.0.*"
 	},
 	"autoload": {
 		"psr-0": { "Mechanize": "src/" }
-	}
+	},
 }
