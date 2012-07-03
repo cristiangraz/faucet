@@ -452,7 +452,7 @@ class Client
      *
      * @param int How many steps to move back (must be negative)
      */
-    public function back(integer $step = -1)
+    public function back($step = -1)
     {
         if (false === is_int($step) || $step >= 0) {
             throw new Exception('Moving backwards requires a negative integer');
@@ -466,7 +466,7 @@ class Client
      *
      * @param int How many steps to move forward
      **/
-    public function forward(integer $step = 1)
+    public function forward($step = 1)
     {
         if (false === is_int($step) || $step <= 0) {
             throw new Exception('Moving forward requires an integer greater than zero');

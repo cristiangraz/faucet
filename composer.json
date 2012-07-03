@@ -1,9 +1,9 @@
 {
-	name: "cristiangraz/mechanize",
-	require: {
-		guzzle/guzzle: "2.7.2",
+	"name": "cristiangraz/mechanize",
+	"require": {
+		"guzzle/guzzle": "2.7.2"
 	},
-	autoload: {
-		psr-0: { "Mechanize": "src/" }
+	"autoload": {
+		"psr-0": { "Mechanize": "src/" }
 	}
 }
