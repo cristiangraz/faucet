@@ -1,9 +1,15 @@
 {
-    "hash": "d700a3328e5db43eec5c31d31dc5b982",
+    "hash": "01fd103488b9bd4bfc9c689b6ce63199",
     "packages": [
         {
             "package": "guzzle/guzzle",
             "version": "v2.7.2"
+        },
+        {
+            "package": "symfony/css-selector",
+            "version": "2.0.x-dev",
+            "source-reference": "v2.0.15",
+            "commit-date": "1337530510"
         },
         {
             "package": "symfony/event-dispatcher",
