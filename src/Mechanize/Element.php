@@ -5,6 +5,9 @@ namespace Mechanize;
 use Mechanize\Client;
 use Mechanize\Exception;
 
+use Zend\Filter\FilterChain;
+use Zend\Filter\FilterInterface;
+
 class Element
 {
     /**
@@ -98,7 +101,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      **/
-    public function getText($filterChain = false)
+    public function getText(FilterInterface $filterChain = false)
     {
         return $this->filter($this->element->textContent, $filterChain);
     }
@@ -110,7 +113,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      */
-    public function getHtml($filterChain = false)
+    public function getHtml(FilterInterface $filterChain = false)
     {
         $dom = new DOMDocument;
         $dom->appendChild($dom->importNode($this->getElement(), true));
@@ -140,7 +143,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      **/
-    public function getAttribute($attr, $filterChain = false)
+    public function getAttribute($attr, FilterInterface $filterChain = false)
     {
         if ('' !== $attribute = $this->element->getAttribute($attr)) {
             return $this->filter($attribute, $filterChain);
@@ -159,25 +162,25 @@ class Element
      * @return string
      * @throws Compass_Mechanize_Exception
      **/
-    protected function filter($string, $filterChain = false)
+    protected function filter($string, FilterInterface $filterChain = false)
     {
         if (false === $filterChain) {
             return $string;
         }
         
         if (is_array($filterChain)) {
-            $chain = new Zend_Filter;
+            $chain = new FilterChain;
             foreach ($filterChain as $f) {
-                if (!$f instanceof Zend_Filter_Interface) {
-                    throw new Exception('Filter is not a valid Zend_Filter');
+                if (!$f instanceof FilterInterface) {
+                    throw new Exception('Filter is not a valid Zend Filter');
                 }
-                $chain->addFilter($f);
+                $chain->attach($f);
             }
             $filterChain = $chain;
             unset($chain);
         }
         
-        if ($filterChain instanceof Zend_Filter_Interface) {
+        if ($filterChain instanceof FilterInterface) {
             return $filterChain->filter($string);
         }
         

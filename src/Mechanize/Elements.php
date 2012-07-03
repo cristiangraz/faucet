@@ -4,6 +4,9 @@ namespace Mechanize;
 
 use Mechanize\Element;
 
+use Zend\Validator\ValidatorChain;
+use Zend\Validator\ValidatorInterface;
+
 class Elements implements \Iterator
 {
     /**
@@ -92,7 +95,7 @@ class Elements implements \Iterator
      * @return Compass_Mechanize_Elements. If no validator, the object is returned back to you. 
      *      Otherwise, returns a new Compass_Mechanize_Elements object with the nodes that matched as elements.
      **/
-    public function addCriteria($attr, $validator = false)
+    public function addCriteria($attr, ValidatorInterface $validator = false)
     {
         if (false === $validator) {
             return $this;
@@ -101,7 +104,7 @@ class Elements implements \Iterator
         $results = new Elements;
         
         if ($validator && is_array($validator)) {
-            $chain = new Zend_Validate;
+            $chain = new ValidatorChain;
             foreach ($validator as $v) {
                 $chain->addValidator($v);
             }
@@ -109,7 +112,7 @@ class Elements implements \Iterator
             unset($chain);
         }
         
-        if ($validator && $validator instanceof Zend_Validate_Interface) {
+        if ($validator && $validator instanceof ValidatorInterface) {
             foreach ($this->getElements() as $k => $element) {
                 if ($attr == '_text') {
                     if ($validator->isValid($element->getText())) {
@@ -193,7 +196,7 @@ class Elements implements \Iterator
      * @param bool whether or not the attribute contains urls
      * @return Mechanize\Elements
      **/
-    public function unique($attr, $isUrl=false) 
+    public function unique($attr, $isUrl = false) 
     {
         $vals = array();
         foreach ($this->elements as $num => $element) {
