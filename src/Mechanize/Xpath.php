@@ -16,10 +16,10 @@ class Xpath
     
     public function combine()
     {
-        if (!$this->isLiteral) {
+        if (false === $this->isLiteral) {
             $selectors = '';
             
-            if (!empty($this->selectors)) {
+            if (false === empty($this->selectors)) {
                 foreach ($this->selectors as $s) {
                     $selectors .= $s . ' and ';
                 }

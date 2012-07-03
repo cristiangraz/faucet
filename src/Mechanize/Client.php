@@ -148,7 +148,7 @@ class Client
      *
      * @return object Mechanize/Client
      */
-    public function setMaxRedirects(int $redirects)
+    public function setMaxRedirects($redirects)
     {
         $this->maxRedirects = $redirects;
 
@@ -162,7 +162,7 @@ class Client
      *
      * @return object Mechanize/Client
      */
-    public function setTimeout(int $timeout)
+    public function setTimeout($timeout)
     {
         $this->timeout = $timeout;
 
@@ -174,7 +174,7 @@ class Client
      *
      * @param object
      */
-    public function addClientSubscriber(object $subscriber)
+    public function addClientSubscriber($subscriber)
     {
         $this->httpClient->addSubscriber($subscriber);
 
@@ -187,7 +187,7 @@ class Client
      * @param string $agent
      * @return object Mechanize\Client
      */
-    public function setAgent(string $agent)
+    public function setAgent($agent)
     {
         $this->httpClient->setUserAgent($agent, false);
 
@@ -601,9 +601,9 @@ class Client
     protected function setupDom()
     {
         if (is_null($this->dom)) {
-            $this->dom = new DOMDocument;
+            $this->dom = new \DOMDocument;
             @$this->dom->loadHtml($this->body);
-            $this->domxpath = new DOMXPath($this->dom);
+            $this->domxpath = new \DOMXPath($this->dom);
         }
     }
 
