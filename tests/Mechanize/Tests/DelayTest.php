@@ -6,7 +6,7 @@ use Mechanize\Delay\ExactDelay;
 use Mechanize\Delay\NoDelay;
 use Mechanize\Delay\RandomDelay;
 
-class ClientTest extends \PHPUnit_Framework_TestCase
+class DelayTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testExactDelay()

@@ -2,8 +2,6 @@
 
 namespace Mechanize\Delay;
 
-use Mechanize\DelayInterface;
-
 class ExactDelay implements DelayInterface
 {
     /**
