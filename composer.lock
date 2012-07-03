@@ -1,5 +1,5 @@
 {
-    "hash": "c475cd8c13f5c8b6a063f5defedf442d",
+    "hash": "d700a3328e5db43eec5c31d31dc5b982",
     "packages": [
         {
             "package": "guzzle/guzzle",
@@ -14,7 +14,16 @@
         {
             "package": "symfony/event-dispatcher",
             "version": "dev-master",
-            "source-reference": "v2.1.0-BETA1"
+            "source-reference": "v2.1.0-BETA1",
+            "commit-date": "1338018513"
+        },
+        {
+            "package": "zendframework/zend-filter",
+            "version": "2.0.0-beta4"
+        },
+        {
+            "package": "zendframework/zend-validator",
+            "version": "2.0.0-beta4"
         }
     ],
     "packages-dev": null,
