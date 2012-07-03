@@ -3,6 +3,7 @@
 namespace Mechanize;
 
 use Mechanize\Client;
+use Mechanize\Exception;
 
 class Element
 {
@@ -25,7 +26,7 @@ class Element
      *
      * @param DOMElement
      **/
-    public function __construct(DOMElement $element, Client $client)
+    public function __construct(\DOMElement $element, Client $client)
     {
         $this->element = $element;
         $this->client = $client;
@@ -168,7 +169,7 @@ class Element
             $chain = new Zend_Filter;
             foreach ($filterChain as $f) {
                 if (!$f instanceof Zend_Filter_Interface) {
-                    throw new Compass_Mechanize_Exception('Filter is not a valid Zend_Filter');
+                    throw new Exception('Filter is not a valid Zend_Filter');
                 }
                 $chain->addFilter($f);
             }
