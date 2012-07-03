@@ -4,7 +4,7 @@ namespace Mechanize;
 
 use Mechanize\Element;
 
-class Elements
+class Elements implements \Iterator
 {
     /**
      * An array of Mechanize\Element objects
@@ -210,5 +210,32 @@ class Elements
         }
         
         return $this;
+    }
+
+    public function rewind()
+    {
+        reset($this->elements);
+    }
+
+    public function current()
+    {
+        return current($this->elements);
+    }
+
+    public function key()
+    {
+        return key($this->elements);
+    }
+
+    public function next()
+    {
+        return next($this->elements);
+    }
+
+    public function valid()
+    {
+        $key = key($this->elements);
+        
+        return null !== $key && false !== $key;
     }
 }
