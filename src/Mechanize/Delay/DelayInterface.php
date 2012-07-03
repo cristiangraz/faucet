@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize;
+namespace Mechanize\Delay;
 
 interface DelayInterface
 {
