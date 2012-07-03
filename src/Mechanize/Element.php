@@ -101,7 +101,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      **/
-    public function getText(FilterInterface $filterChain = false)
+    public function getText($filterChain = false)
     {
         return $this->filter($this->element->textContent, $filterChain);
     }
@@ -113,7 +113,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      */
-    public function getHtml(FilterInterface $filterChain = false)
+    public function getHtml($filterChain = false)
     {
         $dom = new DOMDocument;
         $dom->appendChild($dom->importNode($this->getElement(), true));
@@ -143,7 +143,7 @@ class Element
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
      **/
-    public function getAttribute($attr, FilterInterface $filterChain = false)
+    public function getAttribute($attr, $filterChain = false)
     {
         if ('' !== $attribute = $this->element->getAttribute($attr)) {
             return $this->filter($attribute, $filterChain);
@@ -162,7 +162,7 @@ class Element
      * @return string
      * @throws Compass_Mechanize_Exception
      **/
-    protected function filter($string, FilterInterface $filterChain = false)
+    protected function filter($string, $filterChain = false)
     {
         if (false === $filterChain) {
             return $string;
@@ -170,11 +170,11 @@ class Element
         
         if (is_array($filterChain)) {
             $chain = new FilterChain;
-            foreach ($filterChain as $f) {
-                if (!$f instanceof FilterInterface) {
+            foreach ($filterChain as $filter) {
+                if (!$filter instanceof FilterInterface) {
                     throw new Exception('Filter is not a valid Zend Filter');
                 }
-                $chain->attach($f);
+                $chain->attach($filter);
             }
             $filterChain = $chain;
             unset($chain);

@@ -95,7 +95,7 @@ class Elements implements \Iterator
      * @return Compass_Mechanize_Elements. If no validator, the object is returned back to you. 
      *      Otherwise, returns a new Compass_Mechanize_Elements object with the nodes that matched as elements.
      **/
-    public function addCriteria($attr, ValidatorInterface $validator = false)
+    public function addCriteria($attr, $validator = false)
     {
         if (false === $validator) {
             return $this;
