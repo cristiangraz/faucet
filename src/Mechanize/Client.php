@@ -495,7 +495,7 @@ class Client
                 $context = $context->getElement();
             }
 
-            if ($context instanceof DOMNode) {
+            if ($context instanceof \DOMNode) {
                 $nodes = $this->domxpath->evaluate($selector, $context);
             } else {
                 throw new Exception('Invalid context node');
