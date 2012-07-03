@@ -345,6 +345,7 @@ class Client
 
     /**
      * Follow a link on the page by specifying an xpath selector
+     * @todo Does the href need to be converted to an absolute url for 100% compatability?
      *
      * @param string
      *
@@ -413,7 +414,7 @@ class Client
      **/
     public function getImages()
     {
-        return $this->find('/html/body//image[@src]');
+        return $this->find('/html/body//img[@src]');
     }
 
     /**
