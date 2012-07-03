@@ -68,6 +68,10 @@ class Element
         if (isset($this->element->{$name})) {
             return $this->element->{$name};
         }
+
+        if ($this->element->hasAttribute($name)) {
+            return $this->element->getAttribute($name);
+        }
         
         return false;
     }
