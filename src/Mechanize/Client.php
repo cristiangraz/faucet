@@ -7,6 +7,7 @@ use Guzzle\Http\CookieJar\ArrayCookieJar;
 use Guzzle\Http\Plugin\CookiePlugin;
 use Guzzle\Http\Plugin\HistoryPlugin;
 use Guzzle\Http\Exception\BadResponseException; 
+use Guzzle\Http\Message\Response;
 
 use Mechanize\Delay\DelayInterface;
 use Mechanize\Delay\NoDelay;
@@ -273,6 +274,20 @@ class Client
         $this->body = $this->response->getBody();
 
         return $this->response;
+    }
+
+    /**
+     * Return the response body if a request has been made
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        if (!$this->response instanceof Response) {
+            return false;
+        }
+
+        return $this->response->getBody();
     }
 
     /**
@@ -599,21 +614,34 @@ class Client
     }
 
     /**
-     * Sets up the DOMDocument and DOMXPath if it's not already in a lazy-load fashion
+     * Retrieves a file and returns an stdClass with filename, contentType, and contents keys
      *
-     * @return void
+     * @param string $url The url where the file exists
+     *
+     * @return object stdClass
      */
-    protected function setupDom()
+    public function getFile($url)
     {
-        if (is_null($this->dom)) {
-            $this->dom = new \DOMDocument;
-            @$this->dom->loadHtml($this->body);
-            $this->domxpath = new \DOMXPath($this->dom);
-        }
-    }
+        $response = $this->get($url);
 
-    /* @todo - do we want these? */
-    public function getFile() {}
+        if ($response->getStatusCode() != 200) {
+            return false;
+        }
+
+        $file = new \stdClass;
+
+        $file->filename = null;
+        if (!is_null($response->getHeader('Content-Disposition'))) {
+            if (preg_match('/.*filename="?([^";]+)"?.*/i', $response->getHeader('Content-Disposition'), $m)) {
+                $file->filename = $m[1];
+            }
+        }
+        
+        $file->contentType = $response->getHeader('Content-Type');
+        $file->contents = $this->getBody();
+
+        return $file;
+    }
 
     public function xpath() {}
 
@@ -625,5 +653,19 @@ class Client
     public function __toString()
     {
         return $this->getContents();
+    }
+
+    /**
+     * Sets up the DOMDocument and DOMXPath if it's not already in a lazy-load fashion
+     *
+     * @return void
+     */
+    protected function setupDom()
+    {
+        if (is_null($this->dom)) {
+            $this->dom = new \DOMDocument;
+            @$this->dom->loadHtml($this->body);
+            $this->domxpath = new \DOMXPath($this->dom);
+        }
     }
 }
