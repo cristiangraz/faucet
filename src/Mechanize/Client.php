@@ -285,6 +285,16 @@ class Client
     }
 
     /**
+     * Convenience method to determine if the response was successful (2xx | 304)
+     *
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        return $this->response->isSuccessful();
+    }
+
+    /**
      * Return the response body if a request has been made
      *
      * @return string
