@@ -3,9 +3,10 @@
 namespace Mechanize;
 
 use Guzzle\Http\Client as HttpClient;
-use Guzzle\Http\Plugin\CookiePlugin;
 use Guzzle\Http\CookieJar\ArrayCookieJar;
+use Guzzle\Http\Plugin\CookiePlugin;
 use Guzzle\Http\Plugin\HistoryPlugin;
+use Guzzle\Http\Exception\BadResponseException; 
 
 use Mechanize\Delay\DelayInterface;
 use Mechanize\Delay\NoDelay;
@@ -217,7 +218,10 @@ class Client
     /**
      * Fetches a url
      *
+     * @param string $uri The uri to request
+     * @param array $headers The headers to send with the request
      *
+     * @return object Guzzle\Http\Message\Response
      */
     public function get($uri, $headers = array())
     {
@@ -256,7 +260,11 @@ class Client
 
         $headers = array_merge($this->headers, $headers);
 
-        $this->response = $this->httpClient->get($this->uri, $headers)->send();
+        try {
+            $this->response = $this->httpClient->get($this->uri, $headers)->send();
+        } catch (BadResponseException $e) {
+            $this->response = $e->getResponse();
+        }
 
         // Reset headers so they are empty for future requests
         $this->resetHeaders();
@@ -264,11 +272,7 @@ class Client
         // Save the body
         $this->body = $this->response->getBody();
 
-        if (false === $this->response->isSuccessful()) {
-            return false;
-        }
-
-        return $this->body;
+        return $this->response;
     }
 
     /**
