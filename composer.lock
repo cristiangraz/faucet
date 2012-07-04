@@ -1,5 +1,5 @@
 {
-    "hash": "3e02d79c6cdabdc736f8f588d82a7b23",
+    "hash": "43d9d0ef93d75740400e1b1b85e8c18e",
     "packages": [
         {
             "package": "guzzle/guzzle",
@@ -24,11 +24,11 @@
             "commit-date": "1338018513"
         },
         {
-            "package": "zf2/zend-filter1",
+            "package": "zendframework/zend-filter",
             "version": "2.0.0-beta4"
         },
         {
-            "package": "zf2/zend-validator1",
+            "package": "zendframework/zend-validator",
             "version": "2.0.0-beta4"
         }
     ],
@@ -38,7 +38,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "zf2/zend-filter1": 10,
-        "zf2/zend-validator1": 10
+        "zendframework/zend-filter": 10,
+        "zendframework/zend-validator": 10
     }
 }
