@@ -94,7 +94,7 @@ class Elements implements \Iterator
      * @return object Mechanize\Elements. If no validator, the object is returned back to you. 
      *      Otherwise, returns a new Mechanize\Elements object with the nodes that matched as elements.
      **/
-    public function addCriteria($attr, $validator = false)
+    public function validate($attr, $validator = false)
     {
         if (false === $validator) {
             return $this;
@@ -102,21 +102,18 @@ class Elements implements \Iterator
     
         $results = new Elements;
         
-        if ($validator && is_array($validator)) {
-            $chain = new ValidatorChain;
+        if (is_array($validator)) {
+            $validatorChain = new ValidatorChain;
             foreach ($validator as $v) {
-                $chain->addValidator($v);
+                if ($v instanceof ValidatorInterface) {
+                    $validatorChain->addValidator($v, true);
+                }
             }
-            $validator = $chain;
-            unset($chain);
-        }
-        
-        if ($validator && $validator instanceof ValidatorInterface) {
-            foreach ($this->getElements() as $k => $element) {
+
+            foreach ($this->getElements() as $element) {
                 if ($attr == '_text') {
-                    if ($validator->isValid($element->getText())) {
+                    if ($validatorChain->isValid($element->getText())) {
                         $results->addElement($element);
-                        continue;
                     }
                 } elseif ($element->hasAttribute($attr) && $validator->isValid($element->getAttribute($attr))) {
                     $results->addElement($element);
@@ -166,7 +163,7 @@ class Elements implements \Iterator
      * @param int the limit
      * @return Mechanize\Elements
      **/
-    public function setLimit($limit)
+    public function limit($limit)
     {
         array_splice($this->elements, 0, count($this->elements) - $limit);
         $this->length = count($this->elements);
