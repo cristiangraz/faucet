@@ -100,7 +100,6 @@ class Element
     
     /**
      * Returns the text for the node and applies an optional filter
-     * @todo remove support for Zend
      *
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
@@ -112,7 +111,6 @@ class Element
     
     /**
      * Returns the HTML for the node and applies an optional filter
-     * @todo remove support for Zend
      *
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
      * @return string
@@ -121,6 +119,7 @@ class Element
     {
         $dom = new DOMDocument;
         $dom->appendChild($dom->importNode($this->getElement(), true));
+
         return $this->filter($dom->saveHTML(), $filterChain);
     }
     
@@ -158,8 +157,6 @@ class Element
     
     /**
      * Internal function to provide filtering
-     * Note: To apply a php function like htmlentities, use Zend_Filter_Callback('htmlentities');
-     * @todo remove support for Zend
      * 
      * @param string the string to filter
      * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
