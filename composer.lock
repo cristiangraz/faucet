@@ -1,5 +1,5 @@
 {
-    "hash": "b6c2dfbc64eb297b8f9753dc81ce685a",
+    "hash": "3e02d79c6cdabdc736f8f588d82a7b23",
     "packages": [
         {
             "package": "guzzle/guzzle",
@@ -37,7 +37,8 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ]
+    "stability-flags": {
+        "zf2/zend-filter1": 10,
+        "zf2/zend-validator1": 10
+    }
 }
