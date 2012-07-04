@@ -131,13 +131,17 @@ class Client
     const UA_MOZILLA_WINDOWS    =   'Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US; rv:1.9.2) Gecko/20091111 Firefox/3.6';
     const UA_IE_WINDOWS         =   'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0)';
 
-    public function __construct()
+    public function __construct($httpClient = false)
     {
-        $this->httpClient = new HttpClient;
-        $this->history = new HistoryPlugin;
+        if ($httpClient instanceof HttpClient) {
+            $this->httpClient = $httpClient;
+        } else {
+            $this->httpClient = new HttpClient;
+            $this->history = new HistoryPlugin;
 
-        $this->addClientSubscriber(new CookiePlugin(new ArrayCookieJar));
-        $this->addClientSubscriber($this->history);
+            $this->addClientSubscriber(new CookiePlugin(new ArrayCookieJar));
+            $this->addClientSubscriber($this->history);
+        }
 
         $this->setAgent(self::UA_MOZILLA_MAC);
         $this->delayStrategy(new NoDelay);
