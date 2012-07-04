@@ -88,12 +88,11 @@ class Elements implements \Iterator
     
     /**
      * Add criteria to narrow your list of elements.
-     * @todo Remove support for Zend
      *
      * @param string the attribute we are checking. _text is a special attribute that will use the node value
-     * @param bool false|array|Zend_Validate. You can pass an array of Zend_Validators which will be turned into a chain, or pass in a validate chain directly
-     * @return Compass_Mechanize_Elements. If no validator, the object is returned back to you. 
-     *      Otherwise, returns a new Compass_Mechanize_Elements object with the nodes that matched as elements.
+     * @param bool false|array|Zend\Validate. You can pass an array of Validators which will be turned into a chain, or pass in a validate chain directly
+     * @return object Mechanize\Elements. If no validator, the object is returned back to you. 
+     *      Otherwise, returns a new Mechanize\Elements object with the nodes that matched as elements.
      **/
     public function addCriteria($attr, $validator = false)
     {
