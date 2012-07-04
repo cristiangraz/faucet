@@ -1,5 +1,5 @@
 {
-    "hash": "e84b514faf7a0e78b7830ab338517a11",
+    "hash": "b6c2dfbc64eb297b8f9753dc81ce685a",
     "packages": [
         {
             "package": "guzzle/guzzle",
@@ -24,11 +24,11 @@
             "commit-date": "1338018513"
         },
         {
-            "package": "zendframework/zend-filter",
+            "package": "zf2/zend-filter1",
             "version": "2.0.0-beta4"
         },
         {
-            "package": "zendframework/zend-validator",
+            "package": "zf2/zend-validator1",
             "version": "2.0.0-beta4"
         }
     ],
