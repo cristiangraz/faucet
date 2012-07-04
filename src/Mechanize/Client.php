@@ -237,7 +237,11 @@ class Client
             $uri = $this->absoluteUrl($uri);
         }
 
-        // Setup user agent with the useReferrer setting
+        if (!is_null($this->uri) && !isset($headers['Referer'])) {
+            $this->addHeaders(array(
+                'Referer'  => $this->uri
+            ));
+        }
 
         // Reset the request elements
         $this->uri = $uri;
