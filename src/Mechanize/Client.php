@@ -144,7 +144,7 @@ class Client
     public function getPlugin($alias)
     {
         if (array_key_exists($alias, $this->plugins)) {
-            return $this->plugins[$alias];
+            return $this->plugins[$alias]->setParser($this->parser);
         }
 
         return false;

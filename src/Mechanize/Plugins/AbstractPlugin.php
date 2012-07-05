@@ -28,11 +28,7 @@ abstract class AbstractPlugin
 	 *
 	 * @return void
 	 */
-	public function __construct(Parser $parser, array $options = array())
-	{
-		$this->parser = $parser;
-		$this->options = $options;
-	}
+	public function __construct() {}
 
 	/**
 	 * Return the parser object
@@ -42,6 +38,18 @@ abstract class AbstractPlugin
 	public function getParser()
 	{
 		return $this->parser;
+	}
+
+	/**
+	 * Set the parser
+	 *
+	 * @param object $parser Mechanize\Dom\Parser
+	 */
+	public function setParser(Parser $parser)
+	{
+		$this->parser = $parser;
+
+		return $this;
 	}
 
 	/**
@@ -61,6 +69,6 @@ abstract class AbstractPlugin
      **/
 	public function findOne($selector = false, $context = false)
 	{
-		return $this->parser->findOne($selector, 1, $context);
+		return $this->parser->findOne($selector, $context);
 	}
 }

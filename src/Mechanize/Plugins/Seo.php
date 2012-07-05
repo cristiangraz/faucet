@@ -2,7 +2,7 @@
 
 namespace Mechanize\Plugins;
 
-class Seo extends Html implements PluginInterface
+class Seo extends Html
 {
 	protected $canonicalUrl = null;
 
@@ -11,18 +11,18 @@ class Seo extends Html implements PluginInterface
 	 *
 	 * @return mixed The canonical url or bool false
 	 */
-	public function hasCanonical()
+	public function hasCanonicalUrl()
 	{
 		if (!is_null($this->canonicalUrl)) {
-			return !false === $this->canonicalUrl;
+			return $this->canonicalUrl !== null;
 		}
 
 		$canonical = $this->findOne('/html/head/link[@rel="canonical"]');
 
 		if ($canonical->length === 1) {
-			$this->canonicalUrl = $this->getParser()->absoluteUrl($canonical->href);
+			$this->canonicalUrl = $this->getParser()->getAbsoluteUrl($canonical->href);
 
-			return $this->hasCanonical();
+			return $this->hasCanonicalUrl();
 		}
 
 		return false;
@@ -33,9 +33,9 @@ class Seo extends Html implements PluginInterface
 	 *
 	 * @return mixed The canonical url or bool false
 	 */
-	public function getCanonical()
+	public function getCanonicalUrl()
 	{
-		if ($this->hasCanonical()) {
+		if ($this->hasCanonicalUrl()) {
 			return $this->canonicalUrl;
 		}
 

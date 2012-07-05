@@ -4,6 +4,7 @@ namespace Mechanize\Dom;
 
 use Mechanize\Dom\Elements;
 use Mechanize\Dom\Element;
+use Mechanize\Exception;
 
 use Guzzle\Http\Message\Response;
 
