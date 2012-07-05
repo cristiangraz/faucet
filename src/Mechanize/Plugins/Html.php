@@ -6,7 +6,7 @@ use Zend\Validator\Regex;
 
 class Html extends AbstractPlugin implements PluginInterface
 {
-	/**
+    /**
      * Returns the page title of the current page
      *
      * @return string
@@ -72,12 +72,16 @@ class Html extends AbstractPlugin implements PluginInterface
      *
      * @return mixed array of keywords or false
      */
-    public function getMetaKeywords()
+    public function getMetaKeywords($returnElements = false)
     {
         $keywords = $this->findOne('/html/head/meta[@name="keywords"]');
 
         if ($keywords->length === 0) {
             return false;
+        }
+
+        if (true === $returnElements) {
+            return $description;
         }
 
         return preg_split('/, */', $keywords->content, -1, PREG_SPLIT_NO_EMPTY);
@@ -88,12 +92,16 @@ class Html extends AbstractPlugin implements PluginInterface
      *
      * @return mixed string or false
      */
-    public function getMetaDescription()
+    public function getMetaDescription($returnElements = false)
     {
         $description = $this->findOne('/html/head/meta[@name="description"]');
 
         if ($description->length === 0) {
             return false;
+        }
+
+        if (true === $returnElements) {
+            return $description;
         }
 
         return trim($description->content);
@@ -116,14 +124,47 @@ class Html extends AbstractPlugin implements PluginInterface
 
         return $favicon->href;
     }
-	
-	/**
-	 * Define the plugin's alias
-	 *
-	 * @return string
-	 */
-	public function getAlias()
-	{
-		return 'html';
-	}
+
+    /**
+     * Retrieve page rss feeds
+     *
+     * @param bool $returnElements Request Compass\Dom\Elements object be returned back
+     *
+     * @return mixed Array of rss feeds or a Compass\Dom\Elements object
+     */
+    public function getRssFeeds($returnElements = false)
+    {
+        $feeds = $this->find('/html/head/link[@rel="alternate"]');
+
+        $rss = array();
+        if ($feeds->length === 0) {
+            return false;
+        }
+
+        if (true === $returnElements) {
+            return $feeds;
+        }
+
+        foreach ($feeds as $feed) {
+            $singleFeed = new \stdClass;
+
+            $singleFeed->title = $feed->hasAttribute('title') ? $feed->title : null;
+            $singleFeed->type = $feed->hasAttribute('type') ? $feed->type : null;
+            $singleFeed->href = $this->getParser->getAbsoluteUrl($feed->href);
+
+            $rss[] = $singleFeed;
+        }
+
+        return $rss;
+    }
+    
+    /**
+     * Define the plugin's alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return 'html';
+    }
 }
