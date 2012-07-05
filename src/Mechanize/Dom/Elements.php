@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize;
+namespace Mechanize\Dom;
 
-use Mechanize\Element;
+use Mechanize\Dom\Element;
 
 use Zend\Validator\ValidatorChain;
 use Zend\Validator\ValidatorInterface;
@@ -10,7 +10,7 @@ use Zend\Validator\ValidatorInterface;
 class Elements implements \Iterator
 {
     /**
-     * An array of Mechanize\Element objects
+     * An array of Mechanize\Dom\Element objects
      *
      * @var array
      */
@@ -30,11 +30,11 @@ class Elements implements \Iterator
     public function __construct() {}
     
     /**
-     * Adds a Mechanize\Element to the list of nodes
+     * Adds a Mechanize\Dom\Element to the list of nodes
      *
-     * @param Mechanize\Element
+     * @param Mechanize\Dom\Element
      *
-     * @return Mechanize\Elements
+     * @return Mechanize\Dom\Elements
      **/
     public function addElement(Element $element) 
     {
@@ -75,7 +75,7 @@ class Elements implements \Iterator
      * Set the text (node value) for all of the nodes
      *
      * @param string
-     * @return Mechanize\Elements
+     * @return Mechanize\Dom\Elements
      **/
     public function setText($value)
     {
@@ -91,7 +91,7 @@ class Elements implements \Iterator
      *
      * @param string the attribute we are checking. _text is a special attribute that will use the node value
      * @param bool false|array|Zend\Validate. You can pass an array of Validators which will be turned into a chain, or pass in a validate chain directly
-     * @return object Mechanize\Elements. If no validator, the object is returned back to you. 
+     * @return object Mechanize\Dom\Elements. If no validator, the object is returned back to you. 
      *      Otherwise, returns a new Mechanize\Elements object with the nodes that matched as elements.
      **/
     public function validate($attr, $validator = false)
@@ -125,7 +125,7 @@ class Elements implements \Iterator
     }
     
     /**
-     * Returns the array of Mechanize/Element objects
+     * Returns the array of Mechanize\Dom\Element objects
      *
      * @return array
      **/
@@ -138,7 +138,7 @@ class Elements implements \Iterator
      * Returns an element identified by its array key
      *
      * @param string
-     * @return Mechanize\element
+     * @return Mechanize\Dom\Element
      **/
     public function getElement($index)
     {
@@ -148,7 +148,7 @@ class Elements implements \Iterator
     /**
      * Randomizes the order of the elements
      *
-     * @return Mechanize\Elements
+     * @return Mechanize\Dom\Elements
      **/
     public function randomize()
     {
@@ -161,7 +161,7 @@ class Elements implements \Iterator
      * Cuts down on the number of elements by some limit
      *
      * @param int the limit
-     * @return Mechanize\Elements
+     * @return Mechanize\Dom\Elements
      **/
     public function limit($limit)
     {
@@ -190,7 +190,7 @@ class Elements implements \Iterator
      *
      * @param string the attribute
      * @param bool whether or not the attribute contains urls
-     * @return Mechanize\Elements
+     * @return Mechanize\Dom\Elements
      **/
     public function unique($attr, $isUrl = false) 
     {
@@ -211,26 +211,46 @@ class Elements implements \Iterator
         return $this;
     }
 
+    /**
+     * Needed for Iterator. Reset the array pointer to the first element.
+     *
+     */
     public function rewind()
     {
         reset($this->elements);
     }
 
+    /**
+     * Needed for Iterator. Return the current element in the array.
+     *
+     */
     public function current()
     {
         return current($this->elements);
     }
 
+    /**
+     * Needed for Iterator. Return the array key for the current array element
+     *
+     */
     public function key()
     {
         return key($this->elements);
     }
 
+    /**
+     * Needed for Iterator. Move the array pointer forward.
+     *
+     */
     public function next()
     {
         return next($this->elements);
     }
 
+    /**
+     * Needed for iterator. Checks if the current array position is valid
+     *
+     */
     public function valid()
     {
         $key = key($this->elements);

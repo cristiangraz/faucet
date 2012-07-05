@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize;
+namespace Mechanize\Dom;
 
 use Mechanize\Client;
 use Mechanize\Dom\Parser;
@@ -93,7 +93,7 @@ class Element
      * @param string $selector The xpath selector
      * @param mixed int limit or bool false for no limit
      *
-     * @return Mechanize\Dom\Elements
+     * @return Mechanize\Elements
      **/
     public function find($selector = false, $limit = -1)
     {
