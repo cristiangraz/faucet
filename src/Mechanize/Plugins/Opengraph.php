@@ -38,7 +38,7 @@ class Html extends AbstractPlugin implements PluginInterface
             return $this->tags;
         }
 
-        $elements = $this->find('/html/head/meta')->validate(array(
+        $elements = $this->find('/html/head/meta')->validate('property', array(
         	new Regex('/#^(og|article|book|profile|video|):/')
         ));
 
@@ -57,7 +57,14 @@ class Html extends AbstractPlugin implements PluginInterface
         	}
 
         	// Finish building out tags array
+            if (isset($property[2])) {
+                $this->tags[$property[0]][$property[1]][$property[2]] = $value;
+            } elseif (isset($property[1])) {
+                $this->tags[$property[0]][$property[1]] = $value;
+            }
         }
+
+        return $this->tags;
     }
 
     public function isArticle()
