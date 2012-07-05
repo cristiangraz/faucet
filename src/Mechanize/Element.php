@@ -3,6 +3,7 @@
 namespace Mechanize;
 
 use Mechanize\Client;
+use Mechanize\Dom\Parser;
 use Mechanize\Exception;
 
 use Zend\Filter\FilterChain;
@@ -18,21 +19,21 @@ class Element
     protected $element;
     
     /**
-     * Holds a reference to Mechanize object
+     * Holds a reference to Mechanize parser
      *
-     * @param Mechanize/Client
+     * @param Mechanize/Dom/Parser
      **/
-    protected $client;
+    protected $parser;
 
     /**
      * Object construct takes the DOMElement object and saves it
      *
      * @param DOMElement
      **/
-    public function __construct(\DOMElement $element, Client $client)
+    public function __construct(\DOMElement $element, Parser $parser)
     {
         $this->element = $element;
-        $this->client = $client;
+        $this->parser = $parser;
     }
     
     /**
@@ -89,19 +90,21 @@ class Element
     /** 
      * Find within the context of this element
      *
-     * @param string|Compass_Xpath
+     * @param string $selector The xpath selector
      * @param mixed int limit or bool false for no limit
-     * @return Compass_Mechanize_Elements
+     *
+     * @return Mechanize\Elements
      **/
     public function find($selector = false, $limit = -1)
     {
-        return $this->client->find($selector, $limit, $this->getElement());
+        return $this->parser->find($selector, $limit, $this->getElement());
     }
     
     /**
      * Returns the text for the node and applies an optional filter
      *
-     * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
+     * @param mixed $filterChain Either bool false or an array of Zend\Filter objects
+     *
      * @return string
      **/
     public function getText($filterChain = false)
@@ -112,7 +115,7 @@ class Element
     /**
      * Returns the HTML for the node and applies an optional filter
      *
-     * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
+     * @param mixed $filterChain Either bool false or an array of Zend\Filter objects
      * @return string
      */
     public function getHtml($filterChain = false)
@@ -126,9 +129,10 @@ class Element
     /**
      * Extract a portion of text from the node by applying a regex
      *
-     * @param string the regex pattern
-     * @param int the array index to return on the matches
-     * @return string|bool false. String on successful match; bool false on failure.
+     * @param string $pattern The regex pattern
+     * @param int $index The array index to return on the matches
+     *
+     * @return mixed String on successful match; bool false on failure.
      **/
     public function extractText($pattern, $index = 0) 
     {
@@ -143,7 +147,8 @@ class Element
      * Retrieve an attribute from the element and apply on optional filter
      *
      * @param string the attribute name
-     * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
+     * @param mixed $filterChain Either bool false or an array of Zend\Filter objects
+     *
      * @return string
      **/
     public function getAttribute($attr, $filterChain = false)
@@ -159,9 +164,10 @@ class Element
      * Internal function to provide filtering
      * 
      * @param string the string to filter
-     * @param bool false|array|Zend_Filter_Interface. An array of Zend_Filter(s) will create a filter chain, or you can pass the filter chain directly
+     * @param mixed $filterChain Either bool false or an array of Zend\Filter objects
+     *
      * @return string
-     * @throws Compass_Mechanize_Exception
+     * @throws Mechanize\Exception
      **/
     protected function filter($string, $filterChain = false)
     {
