@@ -167,7 +167,7 @@ class Parser
      * @param string the url
      * @return string the absolute url
      **/
-    public function absoluteUrl($url)
+    public function getAbsoluteUrl($url)
     {
         if (false !== preg_match('#^https?://#', $url)) {
             return $url;
@@ -232,17 +232,15 @@ class Parser
      **/
     protected function getElements($selector = false, $limit = -1, $context = false)
     {
-        $this->setupDom();
-
         if ($context === false) {
-            $nodes = $this->domxpath->evaluate($selector);
+            $nodes = $this->xpath->evaluate($selector);
         } else {
             if ($context instanceof Element) {
                 $context = $context->getElement();
             }
 
             if ($context instanceof \DOMNode) {
-                $nodes = $this->domxpath->evaluate($selector, $context);
+                $nodes = $this->xpath->evaluate($selector, $context);
             } else {
                 throw new Exception('Invalid context node');
             }

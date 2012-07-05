@@ -116,8 +116,8 @@ class Client
             $this->addClientSubscriber(new CookiePlugin(new ArrayCookieJar));
         }
 
-        $this->setAgent(self::UA_MOZILLA_MAC);
-        $this->delayStrategy(new NoDelay);
+        $this->setUserAgent(self::UA_MOZILLA_MAC);
+        $this->setDelayStrategy(new NoDelay);
     }
 
     /**
@@ -262,6 +262,18 @@ class Client
     }
 
     /**
+     * Convenience method to return the absolute url of a url
+     *
+     * @param string $url The Url to make absolute
+     *
+     * @return string The absolute url
+     */
+    public function getAbsoluteUrl($url)
+    {
+        return $this->parser->getAbsoluteUrl($url);
+    }
+
+    /**
      * Add custom headers to the request
      *
      * @param array $headers An array of headers to send
@@ -339,7 +351,7 @@ class Client
         @$this->dom->loadHtml($this->getBody());
         $this->domxpath = new \DOMXPath($this->dom);
 
-        $this->parser = new Parser($this->dom, $this->domxpath);
+        $this->parser = new Parser($this->response, $this->dom, $this->domxpath);
         $this->parser->setUri($this->uri);
 
         return $this->response;
@@ -352,7 +364,7 @@ class Client
      **/
     public function find($selector = false, $limit = -1, $context = false)
     {
-        return $this->parser->getElements($selector, $limit, $context);
+        return $this->parser->find($selector, $limit, $context);
     }
 
     /**
@@ -362,7 +374,7 @@ class Client
      **/
     public function findOne($selector = false, $context = false)
     {
-        return $this->find($selector, 1, $context);
+        return $this->parser->find($selector, 1, $context);
     }
 
     /**
