@@ -179,18 +179,6 @@ class Client
     }
 
     /**
-     * Add a Guzzle plugin to the HTTP Client
-     *
-     * @param object
-     */
-    public function addClientSubscriber($subscriber)
-    {
-        $this->httpClient->addSubscriber($subscriber);
-
-        return $this;
-    }
-
-    /**
      * Change the user agent with either a string or one of the class constants
      *
      * @param string $agent
@@ -204,13 +192,29 @@ class Client
     }
 
     /**
-     * Return the response object
+     * Sets the delay strategy to use
      *
-     * @return Guzzle\Http\Message\Response;
+     * @param object Mechanize/Delay/DelayInterface
+     *
+     * @return object Mechanize/Client
      */
-    public function getResponse()
+    public function setDelayStrategy(DelayInterface $delay)
     {
-        return $this->response;
+        $this->delayStrategy = $delay;
+
+        return $this;
+    }
+
+    /**
+     * Add a Guzzle plugin to the HTTP Client
+     *
+     * @param object
+     */
+    public function addClientSubscriber($subscriber)
+    {
+        $this->httpClient->addSubscriber($subscriber);
+
+        return $this;
     }
 
     /**
@@ -221,6 +225,78 @@ class Client
     public function getUri()
     {
         return $this->uri;
+    }
+
+    /**
+     * Return the response body if a request has been made
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        if (!$this->response instanceof Response) {
+            return false;
+        }
+
+        return $this->response->getBody();
+    }
+
+    /**
+     * Returns the page's contents (with any DOM modifications) similar to View > Page Source.
+     *
+     * @return string
+     */
+    public function getContents()
+    {
+        return $this->parser->getContents();
+    }
+
+    /**
+     * Return the response object
+     *
+     * @return Guzzle\Http\Message\Response;
+     */
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    /**
+     * Add custom headers to the request
+     *
+     * @param array $headers An array of headers to send
+     *
+     * @return object Mechanize/Client
+     */
+    public function addHeaders(array $headers = array())
+    {
+        foreach ($headers as $k => $v) {
+            $this->headers[$k] = $v;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set custom headers
+     *
+     * @return object Mechanize/Client;
+     */
+    public function setHeaders(array $headers = array())
+    {
+        $this->headers = $headers;
+
+        return $this;
+    }
+
+    /**
+     * Return the array of custom headers
+     *
+     * @return array
+     */
+    public function getHeaders()
+    {
+        return $this->headers;
     }
 
     /**
@@ -257,7 +333,7 @@ class Client
         }
 
         // Reset headers so they are empty for future requests
-        $this->resetHeaders();
+        $this->setHeaders(array());
 
         $this->dom = new \DOMDocument;
         @$this->dom->loadHtml($this->getBody());
@@ -267,16 +343,6 @@ class Client
         $this->parser->setUri($this->uri);
 
         return $this->response;
-    }
-
-    /**
-     * Convenience method to determine if the response was successful (2xx | 304)
-     *
-     * @return bool
-     */
-    public function isSuccessful()
-    {
-        return $this->response->isSuccessful();
     }
 
     /**
@@ -300,69 +366,13 @@ class Client
     }
 
     /**
-     * Return the response body if a request has been made
+     * Convenience method to determine if the response was successful (2xx | 304)
      *
-     * @return string
+     * @return bool
      */
-    public function getBody()
+    public function isSuccessful()
     {
-        if (!$this->response instanceof Response) {
-            return false;
-        }
-
-        return $this->response->getBody();
-    }
-
-    /**
-     * Add custom headers to the request
-     *
-     * @param array $headers An array of headers to send
-     *
-     * @return object Mechanize/Client
-     */
-    public function addHeaders(array $headers = array())
-    {
-        foreach ($headers as $k => $v) {
-            $this->headers[$k] = $v;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Return the array of custom headers
-     *
-     * @return array
-     */
-    public function getHeaders()
-    {
-        return $this->headers;
-    }
-
-    /**
-     * Reset all custom headers
-     *
-     * @return object Mechanize/Client;
-     */
-    public function resetHeaders()
-    {
-        $this->headers = array();
-
-        return $this;
-    }
-
-    /**
-     * Sets the delay strategy to use
-     *
-     * @param object Mechanize/Delay/DelayInterface
-     *
-     * @return object Mechanize/Client
-     */
-    public function setDelayStrategy(DelayInterface $delay)
-    {
-        $this->delayStrategy = $delay;
-
-        return $this;
+        return $this->response->isSuccessful();
     }
 
     /**
@@ -395,16 +405,6 @@ class Client
         }
 
         return $this;
-    }
-
-    /**
-     * Returns the page's contents (with any DOM modifications) similar to View > Page Source.
-     *
-     * @return string
-     */
-    public function getContents()
-    {
-        return $this->parser->getContents();
     }
 
     /**
