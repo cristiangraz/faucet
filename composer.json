@@ -1,10 +1,6 @@
 {
 	"name": "cristiangraz/mechanize",
 	"repositories": [
-		 {
-	        "type": "composer",
-	        "url": "http://packages.zendframework.com/"
-	    },
 	    {
 	        "type": "package",
 	        "package": {
