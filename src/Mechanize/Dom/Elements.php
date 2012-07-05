@@ -198,9 +198,10 @@ class Elements implements \Iterator
         foreach ($this->elements as $num => $element) {
             $attributeValue = $element->getAttribute($attr);
             if ($isUrl) {
-                $attributeValue = $this->absoluteUrl($attributeValue);
+                $attributeValue = $element->getParser()->getAbsoluteUrl($attributeValue);
             }
-            if (in_array($val, $vals)) {
+
+            if (in_array($attributeValue, $vals)) {
                 unset($this->elements[$num]);
                 $this->length -= 1;
             } else {

@@ -86,6 +86,16 @@ class Element
     {
         return $this->element;
     }
+
+    /**
+     * Returns the parser object
+     *
+     * @return object Mechanize\Dom\Parser
+     */
+    public function getParser()
+    {
+        return $this->parser;
+    }
     
     /** 
      * Find within the context of this element
