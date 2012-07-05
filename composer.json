@@ -4,7 +4,7 @@
 		 {
 	        "type": "composer",
 	        "url": "http://packages.zendframework.com/"
-	    },
+	    }
 	],
 	"require": {
 		"guzzle/guzzle": "2.7.2",
