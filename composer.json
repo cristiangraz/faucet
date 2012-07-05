@@ -3,7 +3,7 @@
 	"require": {
 		"guzzle/guzzle": "2.7.2",
 		"symfony/css-selector": "2.0.*",
-		"zendframework/zendframework": "2.0.x-dev",
+		"zendframework/zendframework": "2.0.x-dev"
 	},
 	"autoload": {
 		"psr-0": { "Mechanize": "src/" }
