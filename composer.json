@@ -1,35 +1,9 @@
 {
 	"name": "cristiangraz/mechanize",
-	"repositories": [
-	    {
-	        "type": "package",
-	        "package": {
-	        	"name": "zf2/zend-filter1",
-	        	"version": "2.0.0-beta4",
-	        	"dist": {
-	        		"url": "http://packages.zendframework.com/composer/Zend_Filter-2.0.0-beta4.zip",
-	        		"type": "zip"
-	        	}
-	        }
-	        
-	    },
-	    {
-	    	"type": "package",
-	        "package": {
-	        	"name": "zf2/zend-validator1",
-	        	"version": "2.0.0-beta4",
-	        	"dist": {
-	        		"url": "http://packages.zendframework.com/composer/Zend_Validator-2.0.0-beta4.zip",
-	        		"type": "zip"
-	        	}
-	        }
-	    }
-	],
 	"require": {
 		"guzzle/guzzle": "2.7.2",
 		"symfony/css-selector": "2.0.*",
-		"zf2/zend-filter1": "2.0.*@beta",
-		"zf2/zend-validator1": "2.0.*@beta"
+		"zendframework/zendframework": "2.0.x-dev",
 	},
 	"autoload": {
 		"psr-0": { "Mechanize": "src/" }
