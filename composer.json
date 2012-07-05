@@ -9,8 +9,8 @@
 	"require": {
 		"guzzle/guzzle": "2.7.2",
 		"symfony/css-selector": "2.0.*",
-		"zendframework/zend-filter": "2.0.*",
-		"zendframework/zend-validator": "2.0.*"
+		"zendframework/zend-filter": "2.0.*@beta",
+		"zendframework/zend-validator": "2.0.*@beta"
 	},
 	"autoload": {
 		"psr-0": { "Mechanize": "src/" }
