@@ -2,10 +2,10 @@
 
 namespace Mechanize\Dom;
 
-use Guzzle\Http\Message\Response;
-
 use Mechanize\Elements;
 use Mechanize\Element;
+
+use Guzzle\Http\Message\Response;
 
 class Parser
 {

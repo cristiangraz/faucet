@@ -1,19 +1,17 @@
 <?php
 
-// Need convenience methods for find(), findOne()
-
 namespace Mechanize;
+
+use Mechanize\Delay\DelayInterface;
+use Mechanize\Delay\NoDelay;
+use Mechanize\Plugins\PluginInterface;
+use Mechanize\Dom\Parser;
 
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\CookieJar\ArrayCookieJar;
 use Guzzle\Http\Plugin\CookiePlugin;
 use Guzzle\Http\Exception\BadResponseException; 
 use Guzzle\Http\Message\Response;
-
-use Mechanize\Delay\DelayInterface;
-use Mechanize\Delay\NoDelay;
-use Mechanize\Plugins\PluginInterface;
-use Mechanize\Dom\Parser;
 
 /**
  * A PHP implementation of Andy Lester's WWW::Mechanize for Perl
