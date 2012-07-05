@@ -1,5 +1,8 @@
 <?php
 
+// Change to xpath expression
+// $client->expression->beginsWith(...)
+
 namespace Mechanize\Dom;
 
 class Xpath
