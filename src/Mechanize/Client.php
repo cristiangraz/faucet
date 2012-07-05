@@ -121,15 +121,31 @@ class Client
     }
 
     /**
-     * Adds a plugin
+     * Registers a plugin
      *
      * @param object $plugin Mechanize\Plugins\PluginInterface
      *
-     * @return Mechanize\Client;
+     * @return object Mechanize\Client;
      */
-    public function addPlugin(PluginInterface $plugin)
+    public function registerPlugin(PluginInterface $plugin)
     {
         $this->plugins[$plugin->getAlias()] = $plugin;
+
+        return $this;
+    }
+
+    /**
+     * Register an array of plugins
+     *
+     * @param array $plugins An array of Mechanize\Plugins\PluginInterface
+     *
+     * @return object Mechanize\Client
+     */
+    public function registerPlugins(array $plugins = array())
+    {
+        foreach ($plugins as $plugin) {
+            $this->registerPlugin($plugin);
+        }
 
         return $this;
     }
