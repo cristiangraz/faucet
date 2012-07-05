@@ -115,7 +115,7 @@ class Elements implements \Iterator
                     if ($validatorChain->isValid($element->getText())) {
                         $results->addElement($element);
                     }
-                } elseif ($element->hasAttribute($attr) && $validator->isValid($element->getAttribute($attr))) {
+                } elseif ($element->hasAttribute($attr) && $validatorChain->isValid($element->getAttribute($attr))) {
                     $results->addElement($element);
                 }
             }
