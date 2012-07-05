@@ -8,41 +8,43 @@ use Mechanize\Exception;
 
 use Guzzle\Http\Message\Response;
 
+use Symfony\Component\CssSelector\CssSelector;
+
 class Parser
 {
-	/**
-	 * Body, ResponseObject. NEED Uri info
-	 */
+    /**
+     * Body, ResponseObject. NEED Uri info
+     */
 
-	/**
-	 * Holds the response object
-	 *
-	 * @var object Guzzle\Http\Message\Response
-	 */
-	protected $response = null;
+    /**
+     * Holds the response object
+     *
+     * @var object Guzzle\Http\Message\Response
+     */
+    protected $response = null;
 
-	/**
-	 * Holds the body associated with the response
-	 *
-	 * @var string
-	 */
-	protected $body = null;
+    /**
+     * Holds the body associated with the response
+     *
+     * @var string
+     */
+    protected $body = null;
 
-	/**
-	 * Holds the DOMDocument object
-	 *
-	 * @var object DOMDocument
-	 */
-	protected $dom = null;
+    /**
+     * Holds the DOMDocument object
+     *
+     * @var object DOMDocument
+     */
+    protected $dom = null;
 
-	/**
-	 * Holds the DOMXPath object
-	 *
-	 * @var object DOMXpath
-	 */
-	protected $xpath = null;
+    /**
+     * Holds the DOMXPath object
+     *
+     * @var object DOMXpath
+     */
+    protected $xpath = null;
 
-	/**
+    /**
      * Holds the scheme for the request
      *
      * @var string
@@ -70,34 +72,34 @@ class Parser
      */
     protected $base = null;
 
-	/**
-	 * Sets the Response, DOMDocument, DomXPath objects
-	 *
-	 * @param object $response Guzzle\Http\Message\Response
-	 * @param object $dom DomDocument
-	 * @param object $xpath DOMXPath
-	 *
-	 * @return void
-	 */
-	public function __construct(Response $response, \DOMDocument $dom, \DOMXPath $xpath)
-	{
-		$this->response = $response;
-		$this->body = $response->getBody();
+    /**
+     * Sets the Response, DOMDocument, DomXPath objects
+     *
+     * @param object $response Guzzle\Http\Message\Response
+     * @param object $dom DomDocument
+     * @param object $xpath DOMXPath
+     *
+     * @return void
+     */
+    public function __construct(Response $response, \DOMDocument $dom, \DOMXPath $xpath)
+    {
+        $this->response = $response;
+        $this->body = $response->getBody();
 
-		$this->dom = $dom;
-		$this->xpath = $xpath;
-	}
+        $this->dom = $dom;
+        $this->xpath = $xpath;
+    }
 
-	/**
-	 * Sets the URI of the current request. Needed for generating absolute urls
-	 *
-	 * @param string $uri
-	 *
-	 * @return void
-	 */
-	public function setUri($uri)
-	{
-		$url = parse_url($uri);
+    /**
+     * Sets the URI of the current request. Needed for generating absolute urls
+     *
+     * @param string $uri
+     *
+     * @return void
+     */
+    public function setUri($uri)
+    {
+        $url = parse_url($uri);
 
         $this->scheme = $url['scheme'];
         $this->host = $url['host'];
@@ -115,14 +117,14 @@ class Parser
                 $this->base .= rtrim($this->base, '/');
             }
         }
-	}
+    }
 
-	public function getBody()
-	{
-		return $this->body;
-	}
+    public function getBody()
+    {
+        return $this->body;
+    }
 
-	/**
+    /**
      * Find any element on the page using an xpath selector
      *
      * @return Mechanize/Elements
@@ -143,13 +145,33 @@ class Parser
     }
 
     /**
+     * Find any element on the page using a css selector selector
+     *
+     * @return Mechanize/Elements
+     **/
+    public function select($selector = false, $limit = -1, $context = false)
+    {
+        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+    }
+
+    /**
+     * Convenience method to find any element on the page using a css selector but only return the first result
+     *
+     * @return Mechanize/Elements
+     **/
+    public function selectOne($selector = false, $context = false)
+    {
+        return $this->findOne(CssSelector::toXPath($selector), $context);
+    }
+
+    /**
      * Returns the page's contents (with any DOM modifications) similar to View > Page Source.
      *
      * @return string
      */
     public function getContents()
     {
-    	if (is_null($this->dom)) {
+        if (is_null($this->dom)) {
             if (!$this->getBody()) {
                 return '';
             }
@@ -162,7 +184,7 @@ class Parser
         return '';
     }
 
-	/**
+    /**
      * Takes a url and returns it as an absolute url
      *
      * @param string the url
@@ -189,7 +211,7 @@ class Parser
         }
     }
 
-	/**
+    /**
      * Internal method used to convert relative urls in the ../ format to an absolute url
      *
      * @param string the relative url
@@ -224,7 +246,7 @@ class Parser
         return $final;
     }
 
-	/**
+    /**
      * Internal method used to get elements based on an xpath selector and an optional limit
      *
      * @param string $selector The xPath selector

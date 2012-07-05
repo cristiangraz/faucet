@@ -9,6 +9,8 @@ use Mechanize\Exception;
 use Zend\Filter\FilterChain;
 use Zend\Filter\FilterInterface;
 
+use Symfony\Component\CssSelector\CssSelector;
+
 class Element
 {
     /**
@@ -108,6 +110,38 @@ class Element
     public function find($selector = false, $limit = -1)
     {
         return $this->parser->find($selector, $limit, $this->getElement());
+    }
+
+    /**
+     * Find one within the context of this element
+     *
+     * @param string $selector The xpath selector
+     *
+     * @return Mechanize\Elements
+     */
+    public function findOne($selector)
+    {
+        return $this->parser->findOne($selector, $this->getElement());
+    }
+
+    /**
+     * Find any element within the context of this element using a css selector selector
+     *
+     * @return Mechanize/Elements
+     **/
+    public function select($selector = false, $limit = -1)
+    {
+        return $this->find(CssSelector::toXPath($selector), $limit, $this->getElement());
+    }
+
+    /**
+     * Convenience method to find any element within the context of this element using a css selector but only return the first result
+     *
+     * @return Mechanize/Elements
+     **/
+    public function selectOne($selector = false)
+    {
+        return $this->findOne(CssSelector::toXPath($selector), $this->getElement());
     }
     
     /**

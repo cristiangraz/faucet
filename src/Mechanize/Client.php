@@ -13,6 +13,8 @@ use Guzzle\Http\Plugin\CookiePlugin;
 use Guzzle\Http\Exception\BadResponseException; 
 use Guzzle\Http\Message\Response;
 
+use Symfony\Component\CssSelector\CssSelector;
+
 /**
  * A PHP implementation of Andy Lester's WWW::Mechanize for Perl
  * Although the interface is similar at times, this is not a direct port of WWW::Mechanize
@@ -391,6 +393,26 @@ class Client
     public function findOne($selector = false, $context = false)
     {
         return $this->parser->find($selector, 1, $context);
+    }
+
+    /**
+     * Find any element on the page using a css selector selector
+     *
+     * @return Mechanize/Elements
+     **/
+    public function select($selector = false, $limit = -1, $context = false)
+    {
+        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+    }
+
+    /**
+     * Convenience method to find any element on the page using a css selector but only return the first result
+     *
+     * @return Mechanize/Elements
+     **/
+    public function selectOne($selector = false, $context = false)
+    {
+        return $this->findOne(CssSelector::toXPath($selector), $context);
     }
 
     /**
