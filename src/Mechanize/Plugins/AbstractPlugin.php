@@ -4,6 +4,8 @@ namespace Mechanize\Plugins;
 
 use Mechanize\Dom\Parser;
 
+use Symfony\Component\CssSelector\CssSelector;
+
 abstract class AbstractPlugin
 {
 	/**
@@ -71,4 +73,24 @@ abstract class AbstractPlugin
 	{
 		return $this->parser->findOne($selector, $context);
 	}
+
+	/**
+     * Find any element on the page using a css selector selector
+     *
+     * @return Mechanize/Elements
+     **/
+    public function select($selector = false, $limit = -1, $context = false)
+    {
+        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+    }
+
+    /**
+     * Convenience method to find any element on the page using a css selector but only return the first result
+     *
+     * @return Mechanize/Elements
+     **/
+    public function selectOne($selector = false, $context = false)
+    {
+        return $this->findOne(CssSelector::toXPath($selector), $context);
+    }
 }
