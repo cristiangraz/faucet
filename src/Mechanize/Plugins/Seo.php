@@ -42,6 +42,59 @@ class Seo extends Html
 		return false;
 	}
 
+	/**
+	 * Return dofollow links
+	 *
+	 * @param mixed $returnElements string or bool false
+	 */
+	public function followLinks($returnElements = false)
+	{
+		$links = $this->find('//a');
+
+		if ($links->length === 0) {
+			return false;
+		}
+
+		$followLinks = array();
+		foreach ($links as $index => $link) {
+			if ($link->hasAttribute('rel') && false !== strpos('nofollow', $link->rel)) {
+				$followLinks[] = $this->getParser()->getAbsoluteUrl($link->href);
+				continue;
+			}
+
+			$link->removeElement($index);
+		}
+
+		if ($returnElements) {
+			return $links;
+		}
+
+		return $followLinks;
+	}
+
+	/**
+	 * Return dofollow links
+	 *
+	 * @param mixed $returnElements string or bool false
+	 */
+	public function nowFollowLinks($returnElements = false)
+	{
+		$links = $this->find('//a[contains(@rel, "nofollow")]');
+
+		if ($links->length === 0) {
+			return false;
+		}
+
+		if ($returnElements) {
+			return $links;
+		}
+
+		$noFollowLinks = array();
+		foreach ($links as $link) {
+			$noFollowLinks[] = $this->getParser()->getAbsoluteUrl($link->href);
+		}
+	}
+
 	public function getAlias()
 	{
 		return 'seo';

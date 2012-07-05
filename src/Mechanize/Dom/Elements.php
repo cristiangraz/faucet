@@ -144,6 +144,23 @@ class Elements implements \Iterator
     {
         return $this->elements[$index];
     }
+
+    /**
+     * Removes an element from elements array given an index
+     *
+     * @param int $index
+     *
+     * @return Mechanize\Dom\Elements
+     */
+    public function removeElement($index)
+    {
+        if (isset($this->elements[$index])) {
+            unset($this->elements[$index]);
+            $this->length -= 1;
+        }
+
+        return $this;
+    }
     
     /**
      * Randomizes the order of the elements

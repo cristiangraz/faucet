@@ -331,6 +331,7 @@ class Client
 
     /**
      * Fetches a url
+     * @todo Add header/extension logic to parse rss feeds and json
      *
      * @param string $uri The uri to request
      * @param array $headers The headers to send with the request
