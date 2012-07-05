@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize;
+namespace Mechanize\Dom;
 
-use Mechanize\Element;
+use Mechanize\Dom\Element;
 
 use Zend\Validator\ValidatorChain;
 use Zend\Validator\ValidatorInterface;

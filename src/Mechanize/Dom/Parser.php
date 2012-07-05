@@ -2,8 +2,8 @@
 
 namespace Mechanize\Dom;
 
-use Mechanize\Elements;
-use Mechanize\Element;
+use Mechanize\Dom\Elements;
+use Mechanize\Dom\Element;
 
 use Guzzle\Http\Message\Response;
 

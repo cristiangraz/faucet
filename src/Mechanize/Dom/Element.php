@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize;
+namespace Mechanize\Dom;
 
 use Mechanize\Client;
 use Mechanize\Dom\Parser;
