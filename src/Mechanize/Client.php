@@ -458,38 +458,6 @@ class Client
     }
 
     /**
-     * Retrieves a file and returns an stdClass with filename, contentType, and contents keys
-     * @todo move this into a plugin, but keep in mind plugins cannot currently make get() requests because
-     *      they don't hold an instance of Mechanize\Client
-     *
-     * @param string $url The url where the file exists
-     *
-     * @return object stdClass
-     */
-    public function getFile($url)
-    {
-        $response = $this->get($url);
-
-        if ($response->getStatusCode() != 200) {
-            return false;
-        }
-
-        $file = new \stdClass;
-
-        $file->filename = null;
-        if (!is_null($response->getHeader('Content-Disposition'))) {
-            if (preg_match('/.*filename="?([^";]+)"?.*/i', $response->getHeader('Content-Disposition'), $m)) {
-                $file->filename = $m[1];
-            }
-        }
-        
-        $file->contentType = $response->getHeader('Content-Type');
-        $file->contents = $this->getBody();
-
-        return $file;
-    }
-
-    /**
      * Magic method to return the contents of the current page on echo() or print() calls
      *
      * @return string The contents of the page
