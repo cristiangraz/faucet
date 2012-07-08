@@ -61,15 +61,6 @@ class Client
     protected $timeout = 20;
 
     /**
-     * Whether or not to freeze the referrer header on a specific url
-     * Designed to be used during loops where the header should appear to be coming from
-     * the same place
-     *
-     * @var bool
-     */
-    protected $freezeReferrer = false;
-
-    /**
      * Holds the response object
      *
      * @var object Guzzle\Http\Message\Response
@@ -446,27 +437,9 @@ class Client
      **/
     public function follow($selector = false)
     {
-        $element = $this->getElements($selector, 1);
+        $element = $this->parser->getElements($selector, 1);
 
         return $this->get($this->parser->absoluteUrl($element->href));
-    }
-
-    /**
-     * Freeze the referrer on the current uri, or unfreeze
-     *
-     * @param bool true to freeze; false to unfreeze
-     *
-     * @return Mechanize\Client
-     **/
-    public function freezeReferrer($freeze = true)
-    {
-        if (true === $freeze) {
-            $this->freezeReferrer = $this->getUri();
-        } else {
-            $this->freezeReferrer = false;
-        }
-
-        return $this;
     }
 
     /**
