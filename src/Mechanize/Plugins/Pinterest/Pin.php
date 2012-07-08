@@ -4,15 +4,16 @@ namespace Mechanize\Plugins\Pinterest;
 
 use Mechanize\Plugins\AbstractPlugin;
 use Mechanize\Plugins\PluginInterface;
+use Mechanize\Plugins\Facebook\OpenGraph;
 
 class Pin extends AbstractPlugin implements PluginInterface
 {
 	/**
-	 * Internal retrieved flag to determine if the data has been parsed
+	 * Holds the OpenGraph plugin to parse og tags
 	 *
-	 * @var bool
+	 * @var object Mechanize\Plugins\Facebook\OpenGraph;
 	 */
-	private $parsed = false;
+	private $openGraph = null;
 
 	/**
 	 * Holds the pinner's name and href
@@ -43,6 +44,20 @@ class Pin extends AbstractPlugin implements PluginInterface
 	private $via = array();
 
 	/**
+	 * The url to this pin
+	 *
+	 * @var string
+	 */
+	private $url = null;
+
+	/**
+	 * List of stats for this pin
+	 *
+	 * @var array
+	 */
+	private $stats = array();
+
+	/**
 	 * Returns the DateTime object representing when this pin occurred
 	 *
 	 * @return object DateTime
@@ -64,6 +79,36 @@ class Pin extends AbstractPlugin implements PluginInterface
 		$this->getPin();
 
 		return $this->time['pretty'];
+	}
+
+	/**
+	 * Returns the canonical url for this pin
+	 *
+	 * @return string
+	 */
+	public function getUrl()
+	{
+		return $this->url;
+	}
+
+	/**
+	 * Return the absolute url to the pinned image
+	 *
+	 * @var string
+	 */
+	public function getImage()
+	{
+		return $this->openGraph->getTag('og.image');
+	}
+
+	/**
+	 * Return the pin's description
+	 *
+	 * @var string
+	 */
+	public function getDescription()
+	{
+		return $this->openGraph->getTag('og.description');
 	}
 
 	/**
@@ -103,6 +148,64 @@ class Pin extends AbstractPlugin implements PluginInterface
 	}
 
 	/**
+	 * Whether or not this pin has been repinned
+	 *
+	 * @return bool
+	 */
+	public function hasRepins()
+	{
+		$this->getPin();
+
+		return $this->stats['repins'] != 0;
+	}
+
+	/**
+	 * Whether or not this pin has any likes
+	 *
+	 * @return bool
+	 */
+	public function hasLikes()
+	{
+		$this->getPin();
+
+		return $this->stats['likes'] != 0;
+	}
+
+	/**
+	 * Whether or not this pin has any comments
+	 *
+	 * @return bool
+	 */
+	public function hasComments()
+	{
+		$this->getPin();
+
+		return $this->stats['comments'] != 0;
+	}
+
+	/**
+	 * Returns the url to the pinboard this pin belongs to
+	 *
+	 * @return string
+	 */
+	public function getPinboard()
+	{
+		$this->getPin();
+
+		return $this->stats['pinboard'];
+	}
+
+	/**
+	 * Returns the name of the pinboard this pin belongs to
+	 *
+	 * @return string
+	 */
+	public function getPinboardName()
+	{
+		return $this->getTag('og.title');
+	}
+
+	/**
 	 * Returns information about the how this pin was pinned
 	 *
 	 * @var mixed $attr The attribute key you want or bool false for the array
@@ -137,14 +240,16 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 */
 	private function getPin()
 	{
-		if (true === $this->parsed) {
+		if (!is_null($this->openGraph)) {
 			return;
 		}
+
+		$this->openGraph = new OpenGraph;
 
 		$pinner = $this->selectOne('p#PinnerName > a');
 		$this->pinner = array(
 			'name' => $pinner->getText(),
-			'href' => $this->getParser()->getAbsoluteUrl($pinner->href)
+			'href' => $this->findOne('/html/head/meta[@property="pinterestapp:pinner"]')->content
 		);
 
 		$stats = $this->selectOne('p#PinnerStats');
@@ -167,6 +272,14 @@ class Pin extends AbstractPlugin implements PluginInterface
 			'display' => trim($source->getText())
 		);
 
-		$this->parsed = true;
+		$this->url = $this->getParser()->getAbsoluteUrl($this->find('/html/head/link[@rel="canonical"]')->href);
+
+		$this->stats = array(
+			'pinboard' => $this->findOne('/html/head/meta[@property="pinterestapp:pinboard"]')->content,
+			'likes' => $this->findOne('/html/head/meta[@property="pinterestapp:likes"]')->content,
+			'repins' => $this->findOne('/html/head/meta[@property="pinterestapp:repins"]')->content,
+			'comments' => $this->findOne('/html/head/meta[@property="pinterestapp:comments"]')->content,
+			'actions' => $this->findOne('/html/head/meta[@property="pinterestapp:actions"]')->content
+		);
 	}
 }
