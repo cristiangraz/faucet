@@ -83,7 +83,7 @@ class Html extends AbstractPlugin implements PluginInterface
         }
 
         if (true === $returnElements) {
-            return $description;
+            return $keywords;
         }
 
         return preg_split('/, */', $keywords->content, -1, PREG_SPLIT_NO_EMPTY);
