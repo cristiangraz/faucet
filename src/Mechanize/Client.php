@@ -360,9 +360,8 @@ class Client
 
         $this->dom = new \DOMDocument;
         @$this->dom->loadHtml($this->getBody());
-        $this->domxpath = new \DOMXPath($this->dom);
 
-        $this->parser = new Parser($this->response, $this->dom, $this->domxpath);
+        $this->parser = new Parser($this->response, $this->dom);
         $this->parser->setUri($this->uri);
 
         return $this->response;

@@ -82,13 +82,13 @@ class Parser
      *
      * @return void
      */
-    public function __construct(Response $response, \DOMDocument $dom, \DOMXPath $xpath)
+    public function __construct(Response $response, \DOMDocument $dom)
     {
         $this->response = $response;
         $this->body = $response->getBody();
 
         $this->dom = $dom;
-        $this->xpath = $xpath;
+        $this->xpath = new \DOMXPath($this->dom);
     }
 
     /**
