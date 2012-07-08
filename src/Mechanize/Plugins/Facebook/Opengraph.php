@@ -70,6 +70,21 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
         return $this->tags;
     }
 
+    public function getTag($tag)
+    {
+        $this->getTags();
+
+        if (0 === strpos('og.', $tag)) {
+            $tag = substr($tag, 3);
+
+            if (!isset($this->tags['og'][$tag])) {
+                return false;
+            }
+
+            return $this->tags['og'][$tag];
+        }
+    }
+
     /**
      * Returns the type of document this is based on the open graph tags
      *
@@ -77,13 +92,7 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
      */
     public function getType()
     {
-        $this->getTags();
-
-        if (!isset($this->tags['og']['type'])) {
-            return false;
-        }
-
-        return $this->tags['og']['type'];
+        return $this->getTag('og.type');
     }
 
     /**
@@ -93,13 +102,17 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
      */
     public function getSiteName()
     {
-        $this->getTags();
+        return $this->getTag('og.sitename');
+    }
 
-        if (!isset($this->tags['og']['site_name'])) {
-            return false;
-        }
+    public function getTitle()
+    {
+        return $this->getTag('og.title');
+    }
 
-        return $this->tags['og']['site_name'];
+    public function getDescription()
+    {
+        return $this->getTag('og.description');
     }
 
     /**
@@ -109,13 +122,7 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
      */
     public function getImage()
     {
-        $this->getTags();
-
-        if (!isset($this->tags['og']['image'])) {
-            return false;
-        }
-
-        return $this->tags['og']['image'];
+        return $this->getTag('og.image');
     }
 
     /**
