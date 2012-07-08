@@ -6,6 +6,7 @@ use Mechanize\Delay\DelayInterface;
 use Mechanize\Delay\NoDelay;
 use Mechanize\Plugins\PluginInterface;
 use Mechanize\Dom\Parser;
+use Mechanize\Dom\Xpath;
 
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\CookieJar\ArrayCookieJar;
@@ -414,6 +415,16 @@ class Client
     public function selectOne($selector = false, $context = false)
     {
         return $this->findOne(CssSelector::toXPath($selector), $context);
+    }
+
+    /**
+     * Return a new Xpath expression builder
+     *
+     * @return Mechanize\Dom\Xpath
+     */
+    public function expression()
+    {
+        return new Xpath;
     }
 
     /**

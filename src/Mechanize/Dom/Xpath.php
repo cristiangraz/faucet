@@ -1,8 +1,5 @@
 <?php
 
-// Change to xpath expression
-// $client->expression->beginsWith(...)
-
 namespace Mechanize\Dom;
 
 class Xpath
@@ -46,7 +43,7 @@ class Xpath
      *
      * @return Mechanize\Xpath
      */
-    public function combine()
+    public function build()
     {
         if (false === $this->isLiteral) {
             $selectors = '';
