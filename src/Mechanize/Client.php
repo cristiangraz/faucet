@@ -47,20 +47,6 @@ class Client
     protected $delayStrategy;
 
     /**
-     * The maximum number of redirects to allow for request
-     *
-     * @var int
-     */
-    protected $maxRedirects = 3;
-
-    /**
-     * The maximum timeout for requests
-     *
-     * @var int
-     */
-    protected $timeout = 20;
-
-    /**
      * Holds the response object
      *
      * @var object Guzzle\Http\Message\Response
@@ -158,34 +144,6 @@ class Client
         }
 
         return false;
-    }
-
-    /**
-     * Set the maximum number of redirects
-     *
-     * @param int
-     *
-     * @return object Mechanize/Client
-     */
-    public function setMaxRedirects($redirects)
-    {
-        $this->maxRedirects = $redirects;
-
-        return $this;
-    }
-
-    /**
-     * Set the timeout time in seconds
-     *
-     * @param int
-     *
-     * @return object Mechanize/Client
-     */
-    public function setTimeout($timeout)
-    {
-        $this->timeout = $timeout;
-
-        return $this;
     }
 
     /**
