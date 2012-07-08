@@ -1,6 +1,9 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Mechanize\Plugins\Facebook;
+
+use Mechanize\Plugins\AbstractPlugin;
+use Mechanize\Plugins\PluginInterface;
 
 use Zend\Validator\Regex;
 
