@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize\Dom\Xpath;
+namespace Mechanize\Dom;
 
-class Expression
+class Xpath
 {
     /**
      * Holds the base selector

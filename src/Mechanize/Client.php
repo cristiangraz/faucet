@@ -6,7 +6,7 @@ use Mechanize\Delay\DelayInterface;
 use Mechanize\Delay\NoDelay;
 use Mechanize\Plugins\PluginInterface;
 use Mechanize\Dom\Parser;
-use Mechanize\Dom\Xpath;
+use Mechanize\Dom\Xpath\Expression;
 
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\CookieJar\ArrayCookieJar;
@@ -424,7 +424,7 @@ class Client
      */
     public function expression()
     {
-        return new Xpath;
+        return new Expression;
     }
 
     /**

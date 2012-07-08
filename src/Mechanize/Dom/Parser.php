@@ -5,6 +5,7 @@ namespace Mechanize\Dom;
 use Mechanize\Dom\Elements;
 use Mechanize\Dom\Element;
 use Mechanize\Exception;
+use Mechanize\Dom\Xpath\Expression;
 
 use Guzzle\Http\Message\Response;
 
@@ -255,6 +256,10 @@ class Parser
      **/
     protected function getElements($selector = false, $limit = -1, $context = false)
     {
+        if ($selector instanceof Expression) {
+            $selector = $selector->build();
+        }
+
         if ($context === false) {
             $nodes = $this->xpath->evaluate($selector);
         } else {
