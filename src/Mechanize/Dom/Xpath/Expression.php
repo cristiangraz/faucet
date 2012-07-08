@@ -23,7 +23,7 @@ class Expression
      *
      * @param string
      */
-    protected $combined = '';
+    protected $expression = '';
     
     /**
      * Whether or not the expression is literal
@@ -56,14 +56,14 @@ class Expression
                 $selectors = '[' . rtrim($selectors, ' and ') . ']';
             }
         
-            $this->combined .= $this->baseSelector . $selectors;
+            $this->expression .= $this->baseSelector . $selectors;
         }
 
         $this->baseSelector = '';
         $this->selectors = array();
         $this->isLiteral = false;
         
-        return $this;
+        return $this->expression;
     }
     
     /**
@@ -75,7 +75,7 @@ class Expression
      */
     public function literal($literal)
     {
-        $this->combined .= $literal;
+        $this->expression .= $literal;
         $this->isLiteral = true;
         
         return $this;
@@ -242,9 +242,9 @@ class Expression
      */
     public function __toString()
     {   
-        $this->combine();
+        $this->build();
         
-        return $this->combined;
+        return $this->expression;
     }
     
     /**
