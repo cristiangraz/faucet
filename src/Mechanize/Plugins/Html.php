@@ -6,6 +6,11 @@ use Zend\Validator\Regex;
 
 class Html extends AbstractPlugin implements PluginInterface
 {
+    /**
+     * The canonical url for the page
+     *
+     * @var string
+     */
     protected $canonicalUrl = null;
 
     /**
@@ -162,7 +167,6 @@ class Html extends AbstractPlugin implements PluginInterface
 
         return false;
     }
-    
 
     /**
      * Retrieve page rss feeds
@@ -175,7 +179,6 @@ class Html extends AbstractPlugin implements PluginInterface
     {
         $feeds = $this->find('/html/head/link[@rel="alternate"]');
 
-        $rss = array();
         if ($feeds->length === 0) {
             return false;
         }
@@ -184,6 +187,7 @@ class Html extends AbstractPlugin implements PluginInterface
             return $feeds;
         }
 
+        $rss = array();
         foreach ($feeds as $feed) {
             $singleFeed = new \stdClass;
 
