@@ -206,6 +206,16 @@ class Pin extends AbstractPlugin implements PluginInterface
 	}
 
 	/**
+	 * Return the number of pins that this pinboard has
+	 *
+	 * @return int
+	 */
+	public function getPinboardPinCount()
+	{
+		return (int) preg_replace('/ pins$/', '', $this->selectOne('div.pinBoard h4')->getText());
+	}
+
+	/**
 	 * Returns information about the how this pin was pinned
 	 *
 	 * @var mixed $attr The attribute key you want or bool false for the array
