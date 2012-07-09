@@ -81,7 +81,15 @@ abstract class AbstractPlugin
      **/
     public function select($selector = false, $limit = -1, $context = false)
     {
-        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+    	if (is_array($selector)) {
+    		$selector = implode(' | ', array_map(function($selector) {
+    			return CssSelector::toXPath($selector);
+    		}, $selector));
+    	} else {
+    		$selector = CssSelector::toXPath($selector);
+    	}
+
+        return $this->find($selector, $limit, $context);
     }
 
     /**

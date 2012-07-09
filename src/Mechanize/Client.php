@@ -301,28 +301,22 @@ class Client
 
         // Reset the request elements
         $this->uri = $uri;
-        $this->body = null;
-        $this->dom = null;
-        $this->domxpath = null;
 
         $headers = array_merge($this->headers, $headers);
 
         try {
-            $this->response = $this->httpClient->get($this->uri, $headers)->send();
+            $response = $this->httpClient->get($this->uri, $headers)->send();
         } catch (BadResponseException $e) {
-            $this->response = $e->getResponse();
+            $response = $e->getResponse();
         }
 
         // Reset headers so they are empty for future requests
         $this->setHeaders(array());
 
-        $this->dom = new \DOMDocument;
-        @$this->dom->loadHtml($this->getBody());
-
-        $this->parser = new Parser($this->response, $this->dom);
+        $this->parser = new Parser($response);
         $this->parser->setUri($this->uri);
 
-        return $this->response;
+        return $response;
     }
 
     /**
@@ -352,7 +346,15 @@ class Client
      **/
     public function select($selector = false, $limit = -1, $context = false)
     {
-        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+        if (is_array($selector)) {
+            $selector = implode(' | ', array_map(function($selector) {
+                return CssSelector::toXPath($selector);
+            }, $selector));
+        } else {
+            $selector = CssSelector::toXPath($selector);
+        }
+
+        return $this->find($selector, $limit, $context);
     }
 
     /**

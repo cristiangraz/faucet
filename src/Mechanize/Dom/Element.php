@@ -225,6 +225,8 @@ class Element
      **/
     protected function filter($string, $filterChain = false)
     {
+        $string = trim($string);
+        
         if (false === $filterChain) {
             return $string;
         }

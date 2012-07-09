@@ -25,13 +25,6 @@ class Parser
     protected $response = null;
 
     /**
-     * Holds the body associated with the response
-     *
-     * @var string
-     */
-    protected $body = null;
-
-    /**
      * Holds the DOMDocument object
      *
      * @var object DOMDocument
@@ -77,17 +70,16 @@ class Parser
      * Sets the Response, DOMDocument, DomXPath objects
      *
      * @param object $response Guzzle\Http\Message\Response
-     * @param object $dom DomDocument
-     * @param object $xpath DOMXPath
      *
      * @return void
      */
-    public function __construct(Response $response, \DOMDocument $dom)
+    public function __construct(Response $response)
     {
         $this->response = $response;
-        $this->body = $response->getBody();
 
-        $this->dom = $dom;
+        $this->dom = new \DOMDocument;
+        @$this->dom->loadHtml($response->getBody());
+
         $this->xpath = new \DOMXPath($this->dom);
     }
 
@@ -128,7 +120,7 @@ class Parser
      */
     public function getBody()
     {
-        return $this->body;
+        return $this->response->getBody();
     }
 
     /**
@@ -168,7 +160,15 @@ class Parser
      **/
     public function select($selector = false, $limit = -1, $context = false)
     {
-        return $this->find(CssSelector::toXPath($selector), $limit, $context);
+        if (is_array($selector)) {
+            $selector = implode(' | ', array_map(function($selector) {
+                return CssSelector::toXPath($selector);
+            }, $selector));
+        } else {
+            $selector = CssSelector::toXPath($selector);
+        }
+
+        return $this->find($selector, $limit, $context);
     }
 
     /**
