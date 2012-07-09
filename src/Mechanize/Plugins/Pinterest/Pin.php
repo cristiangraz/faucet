@@ -88,6 +88,8 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 */
 	public function getUrl()
 	{
+		$this->getPin();
+		
 		return $this->url;
 	}
 
@@ -98,6 +100,8 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 */
 	public function getImage()
 	{
+		$this->getPin();
+
 		return $this->openGraph->getTag('og.image');
 	}
 
@@ -108,6 +112,8 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 */
 	public function getDescription()
 	{
+		$this->getPin();
+
 		return $this->openGraph->getTag('og.description');
 	}
 
@@ -202,6 +208,8 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 */
 	public function getPinboardName()
 	{
+		$this->getPin();
+
 		return $this->getTag('og.title');
 	}
 
