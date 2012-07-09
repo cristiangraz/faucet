@@ -138,7 +138,7 @@ class Parser
      */
     public function getUrl()
     {
-        return $this->response->getRequest()->getUrl()->__toString();
+        return $this->response->getRequest()->getUrl();
     }
 
     /**
