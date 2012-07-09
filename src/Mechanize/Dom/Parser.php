@@ -93,7 +93,8 @@ class Parser
 
     /**
      * Sets the URI of the current request. Needed for generating absolute urls
-     *
+     * @todo This should all be available in the Request object (which holds the Guzzle\Http\Url object)
+     * 
      * @param string $uri
      *
      * @return void
@@ -120,9 +121,24 @@ class Parser
         }
     }
 
+    /**
+     * Returns the body of the response
+     * 
+     * @return string
+     */
     public function getBody()
     {
         return $this->body;
+    }
+
+    /**
+     * Returns the url of the last request
+     * 
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->response->getRequest()->getUrl()->__toString();
     }
 
     /**
