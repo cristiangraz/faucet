@@ -90,6 +90,16 @@ class Element
     }
 
     /**
+     * Returns the tag of the dom node
+      *
+     * @return string The tag
+     */
+    public function getTag()
+    {
+        return $this->element->nodeName;
+    }
+
+    /**
      * Returns the parser object
      *
      * @return object Mechanize\Dom\Parser
@@ -109,7 +119,7 @@ class Element
      **/
     public function find($selector = false, $limit = -1)
     {
-        return $this->parser->find($selector, $limit, $this->getElement());
+        return $this->parser->find($selector, $limit, $this->element);
     }
 
     /**
@@ -121,7 +131,7 @@ class Element
      */
     public function findOne($selector)
     {
-        return $this->parser->findOne($selector, $this->getElement());
+        return $this->parser->findOne($selector, $this->element);
     }
 
     /**
@@ -131,7 +141,7 @@ class Element
      **/
     public function select($selector = false, $limit = -1)
     {
-        return $this->find(CssSelector::toXPath($selector), $limit, $this->getElement());
+        return $this->find(CssSelector::toXPath($selector), $limit);
     }
 
     /**
@@ -141,7 +151,7 @@ class Element
      **/
     public function selectOne($selector = false)
     {
-        return $this->findOne(CssSelector::toXPath($selector), $this->getElement());
+        return $this->findOne(CssSelector::toXPath($selector));
     }
     
     /**
