@@ -305,18 +305,23 @@ class Client
         $headers = array_merge($this->headers, $headers);
 
         try {
-            $response = $this->httpClient->get($this->uri, $headers)->send();
+            $this->response = $this->httpClient->get($this->uri, $headers)->send();
         } catch (BadResponseException $e) {
-            $response = $e->getResponse();
+            $this->response = $e->getResponse();
         }
 
         // Reset headers so they are empty for future requests
         $this->setHeaders(array());
 
-        $this->parser = new Parser($response);
+        $this->parser = new Parser($this->response);
         $this->parser->setUri($this->uri);
 
-        return $response;
+        // @todo Multiple requests seem to choke up without this, but the parser should be passed by reference
+        foreach ($this->plugins as $plugin) {
+            $plugin->setParser($this->parser);
+        }
+
+        return $this->response;
     }
 
     /**
@@ -324,7 +329,7 @@ class Client
      *
      * @return Mechanize/Elements
      **/
-    public function find($selector = false, $limit = -1, $context = false)
+    public function find($selector, $limit = -1, $context = false)
     {
         return $this->parser->find($selector, $limit, $context);
     }
@@ -334,7 +339,7 @@ class Client
      *
      * @return Mechanize/Elements
      **/
-    public function findOne($selector = false, $context = false)
+    public function findOne($selector, $context = false)
     {
         return $this->parser->find($selector, 1, $context);
     }
@@ -344,7 +349,7 @@ class Client
      *
      * @return Mechanize/Elements
      **/
-    public function select($selector = false, $limit = -1, $context = false)
+    public function select($selector, $limit = -1, $context = false)
     {
         if (is_array($selector)) {
             $selector = implode(' | ', array_map(function($selector) {
@@ -362,7 +367,7 @@ class Client
      *
      * @return Mechanize/Elements
      **/
-    public function selectOne($selector = false, $context = false)
+    public function selectOne($selector, $context = false)
     {
         return $this->findOne(CssSelector::toXPath($selector), $context);
     }
@@ -394,7 +399,7 @@ class Client
      *
      * @return Mechanize/Client
      **/
-    public function follow($selector = false)
+    public function follow($selector)
     {
         $element = $this->parser->getElements($selector, 1);
 

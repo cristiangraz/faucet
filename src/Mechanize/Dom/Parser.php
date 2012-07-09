@@ -138,7 +138,7 @@ class Parser
      *
      * @return Mechanize/Elements
      **/
-    public function find($selector = false, $limit = -1, $context = false)
+    public function find($selector, $limit = -1, $context = false)
     {
         return $this->getElements($selector, $limit, $context);
     }
@@ -148,7 +148,7 @@ class Parser
      *
      * @return Mechanize/Elements
      **/
-    public function findOne($selector = false, $context = false)
+    public function findOne($selector, $context = false)
     {
         return $this->find($selector, 1, $context);
     }
@@ -158,7 +158,7 @@ class Parser
      *
      * @return Mechanize/Elements
      **/
-    public function select($selector = false, $limit = -1, $context = false)
+    public function select($selector, $limit = -1, $context = false)
     {
         if (is_array($selector)) {
             $selector = implode(' | ', array_map(function($selector) {
@@ -176,7 +176,7 @@ class Parser
      *
      * @return Mechanize/Elements
      **/
-    public function selectOne($selector = false, $context = false)
+    public function selectOne($selector, $context = false)
     {
         return $this->findOne(CssSelector::toXPath($selector), $context);
     }

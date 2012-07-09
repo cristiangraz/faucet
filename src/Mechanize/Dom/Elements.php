@@ -44,6 +44,10 @@ class Elements implements \Iterator
         return $this;
     }
     
+    /**
+     * Overloading
+     *
+     */
     public function __call($method, $args)
     {
         if (method_exists($this, $method)) {
@@ -59,6 +63,10 @@ class Elements implements \Iterator
         }
     }
     
+    /**
+     * Overloading
+     *
+     */
     public function __set($name, $value)
     {
         foreach ($this->elements as $element) {
@@ -66,6 +74,10 @@ class Elements implements \Iterator
         }
     }
     
+    /**
+     * Overloading
+     *
+     */
     public function __get($name)
     {
         return $this->elements[0]->{$name};
@@ -75,6 +87,7 @@ class Elements implements \Iterator
      * Set the text (node value) for all of the nodes
      *
      * @param string
+     * 
      * @return Mechanize\Dom\Elements
      **/
     public function setText($value)
@@ -91,6 +104,7 @@ class Elements implements \Iterator
      *
      * @param string the attribute we are checking. _text is a special attribute that will use the node value
      * @param bool false|array|Zend\Validate. You can pass an array of Validators which will be turned into a chain, or pass in a validate chain directly
+     * 
      * @return object Mechanize\Dom\Elements. If no validator, the object is returned back to you. 
      *      Otherwise, returns a new Mechanize\Elements object with the nodes that matched as elements.
      **/
@@ -138,6 +152,7 @@ class Elements implements \Iterator
      * Returns an element identified by its array key
      *
      * @param string
+     * 
      * @return Mechanize\Dom\Element
      **/
     public function getElement($index)
@@ -178,6 +193,7 @@ class Elements implements \Iterator
      * Cuts down on the number of elements by some limit
      *
      * @param int the limit
+     * 
      * @return Mechanize\Dom\Elements
      **/
     public function limit($limit)
@@ -193,13 +209,15 @@ class Elements implements \Iterator
      * Example: To remove all meta tags:
      * $mech->find('/html/head/meta')->remove()
      *
-     * @return void
+     * @return Mechanize\Dom\Elements
      */
     public function remove()
     {
         foreach ($this->elements as $element) {
             $element->parentNode->removeChild($element->getElement());
         }
+
+        return $this;
     }
     
     /**
@@ -207,6 +225,7 @@ class Elements implements \Iterator
      *
      * @param string the attribute
      * @param bool whether or not the attribute contains urls
+     * 
      * @return Mechanize\Dom\Elements
      **/
     public function unique($attr, $isUrl = false) 

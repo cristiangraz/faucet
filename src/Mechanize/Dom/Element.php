@@ -117,7 +117,7 @@ class Element
      *
      * @return Mechanize\Elements
      **/
-    public function find($selector = false, $limit = -1)
+    public function find($selector, $limit = -1)
     {
         return $this->parser->find($selector, $limit, $this->element);
     }
@@ -139,7 +139,7 @@ class Element
      *
      * @return Mechanize/Elements
      **/
-    public function select($selector = false, $limit = -1)
+    public function select($selector, $limit = -1)
     {
         return $this->find(CssSelector::toXPath($selector), $limit);
     }
@@ -149,7 +149,7 @@ class Element
      *
      * @return Mechanize/Elements
      **/
-    public function selectOne($selector = false)
+    public function selectOne($selector)
     {
         return $this->findOne(CssSelector::toXPath($selector));
     }
@@ -226,7 +226,7 @@ class Element
     protected function filter($string, $filterChain = false)
     {
         $string = trim($string);
-        
+
         if (false === $filterChain) {
             return $string;
         }
