@@ -63,9 +63,13 @@ class Craigslist extends AbstractPlugin implements PluginInterface
 	 * 
 	 * @return array An array of postings
 	 */
-	public function getPostings($limit = -1)
+	public function getPostings($criteria = -1)
 	{
-		$elements = $this->select(array('h4.ban', 'p.row'), $limit);
+		if ($criteria instanceof \DateTime) {
+			$elements = $this->find('//p[preceding-sibling::h4[1][. = "' . $criteria->format('D M d') . '"]]');
+		} else {
+			$elements = $this->select(array('h4.ban', 'p.row'), $criteria);
+		}
 
 		$postings = array();
 		foreach ($elements as $element) {
