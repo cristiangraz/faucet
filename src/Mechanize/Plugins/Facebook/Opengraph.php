@@ -31,7 +31,7 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
     }
 
     /**
-     * Returns the page title of the current page
+     * Returns the list of open graph tags
      *
      * @return string
      **/
@@ -41,8 +41,10 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
             return $this->tags;
         }
 
+        $this->tags = array();
+
         $elements = $this->find('/html/head/meta')->validate('property', array(
-            new Regex('/^(og|article|book|profile|video):/')
+            new Regex('/^(og|article|book|profile|video|[a-z]+app):/')
         ));
 
         if ($elements->length === 0) {
@@ -50,39 +52,39 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
         }
 
         foreach ($elements as $element) {
-            $property = explode(':', $element->property);
+            $property = str_replace(':', '.', $element->property);
             $value = trim($element->content);
 
-            $base = $property[0];
-            if ($base === 'og') {
-                $this->tags['og'][$property[1]] = $value;
+            $keys = explode('.', $property);
+
+            if ('tag' === array_pop($keys)) {
+                $this->tags[$property][] = $value;
+
                 continue;
             }
 
-            // Finish building out tags array
-            if (isset($property[2])) {
-                $this->tags[$property[0]][$property[1]][$property[2]] = $value;
-            } elseif (isset($property[1])) {
-                $this->tags[$property[0]][$property[1]] = $value;
-            }
+            $this->tags[$property] = $value;
         }
 
         return $this->tags;
     }
 
+    /**
+     * Returns an opengraph tag
+     * 
+     * @param  string $tag The name of the tag in the format og.video.width
+     * 
+     * @return mixed String or bool false if that tag doesn't exist
+     */
     public function getTag($tag)
     {
         $this->getTags();
 
-        if (0 === strpos('og.', $tag)) {
-            $tag = substr($tag, 3);
-
-            if (!isset($this->tags['og'][$tag])) {
-                return false;
-            }
-
-            return $this->tags['og'][$tag];
+        if (isset($this->tags[$tag])) {
+            return $this->tags[$tag];
         }
+
+        return false;
     }
 
     /**
@@ -105,11 +107,21 @@ class OpenGraph extends AbstractPlugin implements PluginInterface
         return $this->getTag('og.sitename');
     }
 
+    /**
+     * Returns the title of the page as defined in the open graph tags
+     * 
+     * @return mixed String or bool false
+     */
     public function getTitle()
     {
         return $this->getTag('og.title');
     }
 
+    /**
+     * Returns the description of the page as defined in the open graph tags
+     * 
+     * @return mixed String or bool false
+     */
     public function getDescription()
     {
         return $this->getTag('og.description');
