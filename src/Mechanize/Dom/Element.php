@@ -153,7 +153,18 @@ class Element
     {
         return $this->findOne(CssSelector::toXPath($selector));
     }
-    
+
+    /**
+     * Checks to see if the node has text
+     * 
+     * @return bool
+     */
+    public function hasText()
+    {
+        $text = trim($this->element->textContent);
+
+        return !empty($text);
+    }
     /**
      * Returns the text for the node and applies an optional filter
      *
@@ -163,7 +174,7 @@ class Element
      **/
     public function getText($filterChain = false)
     {
-        return $this->filter($this->element->textContent, $filterChain);
+        return $this->filter(trim($this->element->textContent), $filterChain);
     }
     
     /**

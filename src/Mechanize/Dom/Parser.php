@@ -293,7 +293,7 @@ class Parser
         $elements = new Elements;
 
         if ($nodes->length > 0) {
-            $i = 0;
+            $i = 1;
             foreach ($nodes as $node) {
                 $elements->addElement(new Element($node, $this));
 

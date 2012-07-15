@@ -62,6 +62,15 @@ class Expression
         $this->baseSelector = '';
         $this->selectors = array();
         $this->isLiteral = false;
+
+        // Apply convenience functions
+        if (false !== strpos($this->expression, 'lower-case')) {
+            $this->expression = preg_replace('#lower-case\(([^\)]+)\)#', 'translate(\\1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")', $this->expression);
+        }
+
+        if (false !== strpos($this->expression, 'upper-case')) {
+            $this->expression = preg_replace('#upper-case\(([^\)]+)\)#', 'translate(\\1, "abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ")', $this->expression);
+        }
         
         return $this->expression;
     }
@@ -117,16 +126,32 @@ class Expression
      * @param string $value The value to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath
+     * @return Mechanize\Xpath\Expression
      */
     public function attributeEquals($attr, $value, $negate = false)
     {
         if ($attr == 'class') {
-            $this->selectors[] = $this->negate('contains(@class, "' . $value . '")', $negate);
+            $this->hasClass($value, $negate);
         } else {
             $this->selectors[] = $this->negate('@' . $attr . '=\'' . $value . '\'', $negate);
         }
         
+        return $this;
+    }
+
+    /**
+     * Xpath to find a node containing a class
+     * This lowercases the class for standardization
+     * 
+     * @param  string $className The name of the class
+     * @param  bool Whether or not to negate the expression
+     * 
+     * @return Mechanize\Xpath\Expression
+     */
+    public function hasClass($className, $negate = false)
+    {
+        $this->selectors[] = $this->negate('contains(concat(" ", normalize-space(lower-case(@class)), " "), " ' . strtolower($className) . ' ")', $negate);
+
         return $this;
     }
     
