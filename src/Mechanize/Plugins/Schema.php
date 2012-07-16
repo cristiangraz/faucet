@@ -135,12 +135,7 @@ class Schema extends AbstractPlugin implements PluginInterface
 					if ($property->hasAttribute('content')) {
 						$elements[$property->itemprop] = $property->content;
 					} else {
-						if ($isUrl && ($property->getTag() === 'a' || $property->getTag() === 'link')) {
-							$elements[$property->itemprop] = array(
-								'text' => $property->getText(),
-								'href' => $this->getParser()->getAbsoluteUrl($property->href)
-							);
-						} elseif ($property->getTag() === 'img') {
+						if ($property->getTag() === 'img') {
 							$elements[$property->itemprop] = $this->getParser()->getAbsoluteUrl($property->src);
 						} elseif ($property->itemprop === 'image' || $property->itemprop === 'thumbnailUrl') {
 							// Look for divs, etc marked up as an img where an img tag is embedded
@@ -149,6 +144,11 @@ class Schema extends AbstractPlugin implements PluginInterface
 							if ($img->length === 1) {
 								$elements[$property->itemprop] = $this->getParser()->getAbsoluteUrl($img->src);
 							}
+						} elseif ($isUrl && ($property->getTag() === 'a' || $property->getTag() === 'link')) {
+							$elements[$property->itemprop] = array(
+								'text' => $property->getText(),
+								'href' => $this->getParser()->getAbsoluteUrl($property->href)
+							);
 						} elseif ($property->itemprop === 'datePublished') {
 							$elements[$property->itemprop] = new \DateTime($property->itemprop);
 						} else {
