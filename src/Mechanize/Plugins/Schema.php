@@ -129,11 +129,13 @@ class Schema extends AbstractPlugin implements PluginInterface
 			if ($properties->length > 0) {
 				foreach ($properties as $property) {
 
+					$isUrl = false !== stripos($property->itemprop, 'url');
+
 					// If the property is an ancestor of anything beginning with schema-id- that does not equal schema-id-$i, skip
 					if ($property->hasAttribute('content')) {
 						$elements[$property->itemprop] = $property->content;
 					} else {
-						if ($property->itemprop === 'url' && $property->getTag() === 'a') {
+						if ($isUrl && ($property->getTag() === 'a' || $property->getTag() === 'link')) {
 							$elements[$property->itemprop] = array(
 								'text' => $property->getText(),
 								'href' => $this->getParser()->getAbsoluteUrl($property->href)
