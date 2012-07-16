@@ -48,7 +48,7 @@ class Schema extends AbstractPlugin implements PluginInterface
 			}
 		}
 
-		// Return everythign the proper order since we went from the innermost node outwards
+		// Return everything the proper order since we went from the innermost node outwards
 		$this->schemas = array_reverse($this->schemas);
 
 		return $this->schemas;
