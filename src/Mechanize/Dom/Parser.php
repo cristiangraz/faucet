@@ -14,10 +14,6 @@ use Symfony\Component\CssSelector\CssSelector;
 class Parser
 {
     /**
-     * Body, ResponseObject. NEED Uri info
-     */
-
-    /**
      * Holds the response object
      *
      * @var object Guzzle\Http\Message\Response
