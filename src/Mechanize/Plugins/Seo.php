@@ -57,6 +57,28 @@ class Seo extends Html
 		}
 	}
 
+	/**
+	 * Checks for a noindex in the robots meta tag.
+	 * Note: This does not check against the robots.txt file
+	 * 
+	 * @return bool
+	 */
+	public function isIndexable()
+	{
+		$robots = $this->findOne('/html/head/meta[@name="robots"]');
+
+		if ($robots->length === 0) {
+			return true;
+		}
+
+		return false === strpos($robots->content, 'noindex');
+	}
+
+	/**
+	 * Define the plugin's alias
+	 *
+	 * @return string
+	 */
 	public function getAlias()
 	{
 		return 'seo';
