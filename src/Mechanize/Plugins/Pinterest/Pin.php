@@ -51,13 +51,6 @@ class Pin extends AbstractPlugin implements PluginInterface
 	private $url = null;
 
 	/**
-	 * List of stats for this pin
-	 *
-	 * @var array
-	 */
-	private $stats = array();
-
-	/**
 	 * Returns the DateTime object representing when this pin occurred
 	 *
 	 * @return object DateTime
@@ -146,7 +139,7 @@ class Pin extends AbstractPlugin implements PluginInterface
 	{
 		$this->getPin();
 
-		if ($attr === 'href' || $attr === 'display') {
+		if ($attr === 'href' || $attr === 'name') {
 			return $this->source[$attr];
 		}
 
@@ -162,7 +155,7 @@ class Pin extends AbstractPlugin implements PluginInterface
 	{
 		$this->getPin();
 
-		return $this->stats['repins'] != 0;
+		return $this->openGraph->getTag('pinterestapp.repins') != 0;
 	}
 
 	/**
@@ -174,7 +167,7 @@ class Pin extends AbstractPlugin implements PluginInterface
 	{
 		$this->getPin();
 
-		return $this->stats['likes'] != 0;
+		return $this->openGraph->getTag('pinterestapp.likes') != 0;
 	}
 
 	/**
@@ -186,7 +179,43 @@ class Pin extends AbstractPlugin implements PluginInterface
 	{
 		$this->getPin();
 
-		return $this->stats['comments'] != 0;
+		return $this->openGraph->getTag('pinterestapp.comments') != 0;
+	}
+
+	/**
+	 * Returns the number of repins
+	 * 
+	 * @return int
+	 */
+	public function getRepins()
+	{
+		$this->getPin();
+
+		return intval($this->openGraph->getTag('pinterestapp.repins'));
+	}
+
+	/**
+	 * Returns the number of likes
+	 * 
+	 * @return int
+	 */
+	public function getLikes()
+	{
+		$this->getPin();
+
+		return intval($this->openGraph->getTag('pinterestapp.likes'));
+	}
+
+	/**
+	 * Returns the number of comments
+	 * 
+	 * @return int
+	 */
+	public function getComments()
+	{
+		$this->getPin();
+
+		return intval($this->openGraph->getTag('pinterestapp.comments'));
 	}
 
 	/**
@@ -194,33 +223,21 @@ class Pin extends AbstractPlugin implements PluginInterface
 	 *
 	 * @return string
 	 */
-	public function getPinboard()
+	public function getPinboard($attr)
 	{
 		$this->getPin();
 
-		return $this->stats['pinboard'];
-	}
+		if ($attr === 'name') {
+			return $this->openGraph->getTag('og.title');
+		}
 
-	/**
-	 * Returns the name of the pinboard this pin belongs to
-	 *
-	 * @return string
-	 */
-	public function getPinboardName()
-	{
-		$this->getPin();
+		if ($attr === 'href') {
+			return $this->openGraph->getTag('pinterestapp.pinboard');
+		}
 
-		return $this->getTag('og.title');
-	}
-
-	/**
-	 * Return the number of pins that this pinboard has
-	 *
-	 * @return int
-	 */
-	public function getPinboardPinCount()
-	{
-		return (int) preg_replace('/ pins$/', '', $this->selectOne('div.pinBoard h4')->getText());
+		if ($attr === 'pin.count') {
+			return (int) preg_replace('/ pins$/', '', $this->selectOne('div.pinBoard h4')->getText());
+		}
 	}
 
 	/**
@@ -263,11 +280,12 @@ class Pin extends AbstractPlugin implements PluginInterface
 		}
 
 		$this->openGraph = new OpenGraph;
+		$this->openGraph->setParser($this->getParser());
 
 		$pinner = $this->selectOne('p#PinnerName > a');
 		$this->pinner = array(
 			'name' => $pinner->getText(),
-			'href' => $this->findOne('/html/head/meta[@property="pinterestapp:pinner"]')->content
+			'href' => $this->openGraph->getTag('pinterestapp:pinner')
 		);
 
 		$stats = $this->selectOne('p#PinnerStats');
@@ -286,18 +304,10 @@ class Pin extends AbstractPlugin implements PluginInterface
 		$source = $this->selectOne('p#PinSource a');
 
 		$this->source = array(
-			'href' => $this->getParser()->getAbsoluteUrl($source->href),
-			'display' => trim($source->getText())
+			'name' => trim($source->getText()),
+			'href' => $this->openGraph->getTag('pinterestapp.source')
 		);
 
 		$this->url = $this->getParser()->getAbsoluteUrl($this->find('/html/head/link[@rel="canonical"]')->href);
-
-		$this->stats = array(
-			'pinboard' => $this->findOne('/html/head/meta[@property="pinterestapp:pinboard"]')->content,
-			'likes' => $this->findOne('/html/head/meta[@property="pinterestapp:likes"]')->content,
-			'repins' => $this->findOne('/html/head/meta[@property="pinterestapp:repins"]')->content,
-			'comments' => $this->findOne('/html/head/meta[@property="pinterestapp:comments"]')->content,
-			'actions' => $this->findOne('/html/head/meta[@property="pinterestapp:actions"]')->content
-		);
 	}
 }
