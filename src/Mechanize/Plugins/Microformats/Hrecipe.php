@@ -224,7 +224,7 @@ class Hrecipe extends Microformat implements PluginInterface
 			if ($instructions->length === 1) {
 				$i = $instructions->getText();
 			} else {
-				if ($separator) {
+				if (false !== $separator) {
 					$instructions = $instructions->getElement(0)->find($separator);
 				}
 
