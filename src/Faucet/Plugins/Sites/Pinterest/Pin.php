@@ -1,6 +1,6 @@
 <?php
 
-namespace Faucet\Plugins\Pinterest;
+namespace Faucet\Plugins\Sites\Pinterest;
 
 use Faucet\Plugins\AbstractPlugin;
 use Faucet\Plugins\PluginInterface;

@@ -1,6 +1,9 @@
 <?php
 
-namespace Faucet\Plugins;
+namespace Faucet\Plugins\Sites;
+
+use Faucet\Plugins\AbstractPlugin;
+use Faucet\Plugins\PluginInterface;
 
 class Craigslist extends AbstractPlugin implements PluginInterface
 {
