@@ -17,9 +17,6 @@ use Guzzle\Http\Message\Response;
 use Symfony\Component\CssSelector\CssSelector;
 
 /**
- * A PHP implementation of Andy Lester's WWW::Faucet for Perl
- * Although the interface is similar at times, this is not a direct port of WWW::Faucet
- *
  * @package Faucet;
  * @copyright Copyright 2012 Cristian Graziano
  */
