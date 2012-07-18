@@ -121,6 +121,10 @@ class Client
     public function registerPlugins(array $plugins = array())
     {
         foreach ($plugins as $plugin) {
+            if (!$plugin instanceof PluginInterface) {
+                throw new Exception('Plugin must implment the PluginInterface');
+            }
+            
             $this->registerPlugin($plugin);
         }
 
