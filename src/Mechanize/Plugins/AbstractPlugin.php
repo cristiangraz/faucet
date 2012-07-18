@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Faucet\Plugins;
 
-use Mechanize\Dom\Parser;
+use Faucet\Dom\Parser;
 
 use Symfony\Component\CssSelector\CssSelector;
 
@@ -11,7 +11,7 @@ abstract class AbstractPlugin
 	/**
 	 * Parser object
 	 *
-	 * @var object Mechanize\Dom\Parser
+	 * @var object Faucet\Dom\Parser
 	 */
 	protected $parser = null;
 
@@ -26,7 +26,7 @@ abstract class AbstractPlugin
 	/**
 	 * Sets the Parser object
 	 *
-	 * @param object Mechanize\Dom\Parser
+	 * @param object Faucet\Dom\Parser
 	 *
 	 * @return void
 	 */
@@ -35,7 +35,7 @@ abstract class AbstractPlugin
 	/**
 	 * Return the parser object
 	 *
-	 * @return object Mechanize\Dom\Parser
+	 * @return object Faucet\Dom\Parser
 	 */
 	public function getParser()
 	{
@@ -45,7 +45,7 @@ abstract class AbstractPlugin
 	/**
 	 * Set the parser
 	 *
-	 * @param object $parser Mechanize\Dom\Parser
+	 * @param object $parser Faucet\Dom\Parser
 	 */
 	public function setParser(Parser $parser)
 	{
@@ -57,7 +57,7 @@ abstract class AbstractPlugin
 	/**
      * Convenience method. Find any element on the page using an xpath selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
 	public function find($selector = false, $limit = -1, $context = false)
 	{
@@ -67,7 +67,7 @@ abstract class AbstractPlugin
 	/**
      * Convenience method. Find any element on the page using an xpath selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
 	public function findOne($selector = false, $context = false)
 	{
@@ -77,7 +77,7 @@ abstract class AbstractPlugin
 	/**
      * Find any element on the page using a css selector selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function select($selector = false, $limit = -1, $context = false)
     {
@@ -95,7 +95,7 @@ abstract class AbstractPlugin
     /**
      * Convenience method to find any element on the page using a css selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function selectOne($selector = false, $context = false)
     {

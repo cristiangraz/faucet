@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Faucet\Plugins;
 
 class Craigslist extends AbstractPlugin implements PluginInterface
 {

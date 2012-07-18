@@ -1,12 +1,12 @@
 <?php
 
-namespace Mechanize;
+namespace Faucet;
 
-use Mechanize\Delay\DelayInterface;
-use Mechanize\Delay\NoDelay;
-use Mechanize\Plugins\PluginInterface;
-use Mechanize\Dom\Parser;
-use Mechanize\Dom\Xpath\Expression;
+use Faucet\Delay\DelayInterface;
+use Faucet\Delay\NoDelay;
+use Faucet\Plugins\PluginInterface;
+use Faucet\Dom\Parser;
+use Faucet\Dom\Xpath\Expression;
 
 use Guzzle\Http\Client as HttpClient;
 use Guzzle\Http\CookieJar\ArrayCookieJar;
@@ -17,10 +17,10 @@ use Guzzle\Http\Message\Response;
 use Symfony\Component\CssSelector\CssSelector;
 
 /**
- * A PHP implementation of Andy Lester's WWW::Mechanize for Perl
- * Although the interface is similar at times, this is not a direct port of WWW::Mechanize
+ * A PHP implementation of Andy Lester's WWW::Faucet for Perl
+ * Although the interface is similar at times, this is not a direct port of WWW::Faucet
  *
- * @package Mechanize;
+ * @package Faucet;
  * @copyright Copyright 2012 Cristian Graziano
  */
 class Client
@@ -42,7 +42,7 @@ class Client
     /**
      * Holds an instance of the Delay object
      *
-     * @var object Mechanize\Delay
+     * @var object Faucet\Delay
      */
     protected $delayStrategy;
 
@@ -63,7 +63,7 @@ class Client
     /**
      * Holds the parser object
      *
-     * @var Mechanize\Dom\Parser
+     * @var Faucet\Dom\Parser
      */
     protected $parser = null;
 
@@ -103,9 +103,9 @@ class Client
     /**
      * Registers a plugin
      *
-     * @param object $plugin Mechanize\Plugins\PluginInterface
+     * @param object $plugin Faucet\Plugins\PluginInterface
      *
-     * @return object Mechanize\Client;
+     * @return object Faucet\Client;
      */
     public function registerPlugin(PluginInterface $plugin)
     {
@@ -117,9 +117,9 @@ class Client
     /**
      * Register an array of plugins
      *
-     * @param array $plugins An array of Mechanize\Plugins\PluginInterface
+     * @param array $plugins An array of Faucet\Plugins\PluginInterface
      *
-     * @return object Mechanize\Client
+     * @return object Faucet\Client
      */
     public function registerPlugins(array $plugins = array())
     {
@@ -150,7 +150,7 @@ class Client
      * Change the user agent with either a string or one of the class constants
      *
      * @param string $agent
-     * @return object Mechanize\Client
+     * @return object Faucet\Client
      */
     public function setUserAgent($agent)
     {
@@ -162,9 +162,9 @@ class Client
     /**
      * Sets the delay strategy to use
      *
-     * @param object Mechanize/Delay/DelayInterface
+     * @param object Faucet/Delay/DelayInterface
      *
-     * @return object Mechanize/Client
+     * @return object Faucet/Client
      */
     public function setDelayStrategy(DelayInterface $delay)
     {
@@ -246,7 +246,7 @@ class Client
      *
      * @param array $headers An array of headers to send
      *
-     * @return object Mechanize/Client
+     * @return object Faucet/Client
      */
     public function addHeaders(array $headers = array())
     {
@@ -260,7 +260,7 @@ class Client
     /**
      * Set custom headers
      *
-     * @return object Mechanize/Client;
+     * @return object Faucet/Client;
      */
     public function setHeaders(array $headers = array())
     {
@@ -327,7 +327,7 @@ class Client
     /**
      * Convenience method. Find any element on the page using an xpath selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function find($selector, $limit = -1, $context = false)
     {
@@ -337,7 +337,7 @@ class Client
     /**
      * Convenience method. Find any element on the page using an xpath selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function findOne($selector, $context = false)
     {
@@ -347,7 +347,7 @@ class Client
     /**
      * Find any element on the page using a css selector selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function select($selector, $limit = -1, $context = false)
     {
@@ -365,7 +365,7 @@ class Client
     /**
      * Convenience method to find any element on the page using a css selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function selectOne($selector, $context = false)
     {
@@ -375,7 +375,7 @@ class Client
     /**
      * Return a new Xpath expression builder
      *
-     * @return Mechanize\Dom\Xpath
+     * @return Faucet\Dom\Xpath
      */
     public function expression()
     {
@@ -397,7 +397,7 @@ class Client
      *
      * @param string
      *
-     * @return Mechanize/Client
+     * @return Faucet/Client
      **/
     public function follow($selector)
     {

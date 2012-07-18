@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Dom\Xpath;
+namespace Faucet\Dom\Xpath;
 
 class Expression
 {
@@ -41,7 +41,7 @@ class Expression
     /**
      * Combines the xpath expressions into one
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function build()
     {
@@ -80,7 +80,7 @@ class Expression
      *
      * @param string $literal
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function literal($literal)
     {
@@ -95,7 +95,7 @@ class Expression
      *
      * @param string $base
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function setBase($base)
     {
@@ -110,7 +110,7 @@ class Expression
      * @param string $attr The attribute to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function hasAttribute($attr, $negate = false)
     {
@@ -126,7 +126,7 @@ class Expression
      * @param string $value The value to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath\Expression
+     * @return Faucet\Xpath\Expression
      */
     public function attributeEquals($attr, $value, $negate = false)
     {
@@ -146,7 +146,7 @@ class Expression
      * @param  string $className The name of the class
      * @param  bool Whether or not to negate the expression
      * 
-     * @return Mechanize\Xpath\Expression
+     * @return Faucet\Xpath\Expression
      */
     public function hasClass($className, $negate = false)
     {
@@ -162,7 +162,7 @@ class Expression
      * @param string $value The value to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function attributeStartsWith($attr, $value, $negate = false)
     {
@@ -179,7 +179,7 @@ class Expression
      * @param string $value The value to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function attributeEndsWith($attr, $value, $negate = false)
     {
@@ -195,7 +195,7 @@ class Expression
      * @param string $value The value to check against
      * @param bool Whether or not to negate the expression
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function attributeContains($attr, $value, $negate = false)
     {
@@ -209,7 +209,7 @@ class Expression
      *
      * @param string $text The text value to check
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function textEquals($text)
     {
@@ -223,7 +223,7 @@ class Expression
      *
      * @param string $text The text value to check
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function textStartsWith($text)
     {
@@ -237,7 +237,7 @@ class Expression
      *
      * @param string $text The text value to check
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function textEndsWith($text)
     {
@@ -251,7 +251,7 @@ class Expression
      *
      * @param string $text The text value to check
      *
-     * @return Mechanize\Xpath
+     * @return Faucet\Xpath
      */
     public function textContains($text)
     {

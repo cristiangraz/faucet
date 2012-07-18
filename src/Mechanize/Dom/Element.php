@@ -1,10 +1,10 @@
 <?php
 
-namespace Mechanize\Dom;
+namespace Faucet\Dom;
 
-use Mechanize\Client;
-use Mechanize\Dom\Parser;
-use Mechanize\Exception;
+use Faucet\Client;
+use Faucet\Dom\Parser;
+use Faucet\Exception;
 
 use Zend\Filter\FilterChain;
 use Zend\Filter\FilterInterface;
@@ -21,9 +21,9 @@ class Element
     protected $element;
     
     /**
-     * Holds a reference to Mechanize parser
+     * Holds a reference to Faucet parser
      *
-     * @param Mechanize/Dom/Parser
+     * @param Faucet/Dom/Parser
      **/
     protected $parser;
 
@@ -102,7 +102,7 @@ class Element
     /**
      * Returns the parser object
      *
-     * @return object Mechanize\Dom\Parser
+     * @return object Faucet\Dom\Parser
      */
     public function getParser()
     {
@@ -115,7 +115,7 @@ class Element
      * @param string $selector The xpath selector
      * @param mixed int limit or bool false for no limit
      *
-     * @return Mechanize\Elements
+     * @return Faucet\Elements
      **/
     public function find($selector, $limit = -1)
     {
@@ -127,7 +127,7 @@ class Element
      *
      * @param string $selector The xpath selector
      *
-     * @return Mechanize\Elements
+     * @return Faucet\Elements
      */
     public function findOne($selector)
     {
@@ -137,7 +137,7 @@ class Element
     /**
      * Find any element within the context of this element using a css selector selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function select($selector, $limit = -1)
     {
@@ -147,7 +147,7 @@ class Element
     /**
      * Convenience method to find any element within the context of this element using a css selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function selectOne($selector)
     {
@@ -232,7 +232,7 @@ class Element
      * @param mixed $filterChain Either bool false or an array of Zend\Filter objects
      *
      * @return string
-     * @throws Mechanize\Exception
+     * @throws Faucet\Exception
      **/
     protected function filter($string, $filterChain = false)
     {

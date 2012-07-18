@@ -1,33 +1,33 @@
 <?php
 
-namespace Mechanize\Plugins\Microformats;
+namespace Faucet\Plugins\Microformats;
 
-use Mechanize\Plugins\AbstractPlugin;
-use Mechanize\Plugins\PluginInterface;
-use Mechanize\Dom\Elements;
+use Faucet\Plugins\AbstractPlugin;
+use Faucet\Plugins\PluginInterface;
+use Faucet\Dom\Elements;
 
-use Mechanize\Dom\Xpath\Expression;
+use Faucet\Dom\Xpath\Expression;
 
 class Hrecipe extends Microformat implements PluginInterface
 {
 	/**
 	 * Holds the recipe Element
 	 * 
-	 * @var object Mechanize\Dom\Elements
+	 * @var object Faucet\Dom\Elements
 	 */
 	private $recipe = null;
 
 	/**
 	 * Holds the context to search for the recipe
 	 * 
-	 * @var object Mechanize\Dom\Elements
+	 * @var object Faucet\Dom\Elements
 	 */
 	private $context = false;
 
 	/**
 	 * Searches for the recipe object
 	 * 
-	 * @return Mechanize\Dom\Elements
+	 * @return Faucet\Dom\Elements
 	 */
 	public function getRecipe()
 	{
@@ -44,9 +44,9 @@ class Hrecipe extends Microformat implements PluginInterface
 	/**
 	 * Sets the context to search the recipe in
 	 * 
-	 * @param object Mechanize\Dom\Elements
+	 * @param object Faucet\Dom\Elements
 	 * 
-	 * @return object Mechanize\Plugins\Microformats\Hrecipe
+	 * @return object Faucet\Plugins\Microformats\Hrecipe
 	 */
 	public function setContext(Elements $context)
 	{
@@ -100,7 +100,7 @@ class Hrecipe extends Microformat implements PluginInterface
 	/**
 	 * Gets the rating based on the hReview microformat
 	 * 
-	 * @return object Mechanize\Plugins\Microformats\Hreview
+	 * @return object Faucet\Plugins\Microformats\Hreview
 	 */
 	public function getRating()
 	{

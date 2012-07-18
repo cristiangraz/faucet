@@ -1,15 +1,15 @@
 <?php
 
-namespace Mechanize\Plugins\Microformats;
+namespace Faucet\Plugins\Microformats;
 
-use Mechanize\Plugins\AbstractPlugin;
+use Faucet\Plugins\AbstractPlugin;
 
 abstract class Microformat extends AbstractPlugin
 {
 	/**
 	 * Checks the node for a value-title and returns either value-title or the text of the original node
 	 * 
-	 * @param  object $node Mechanize\Dom\Elements
+	 * @param  object $node Faucet\Dom\Elements
 	 * 
 	 * @return string The value
 	 */
