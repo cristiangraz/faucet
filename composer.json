@@ -1,5 +1,5 @@
 {
-	"name": "cristiangraz/mechanize",
+	"name": "cristiangraz/faucet",
 	"require": {
 		"guzzle/guzzle": "2.7.2",
 		"symfony/css-selector": "2.0.*"
