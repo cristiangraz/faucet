@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Faucet\Plugins;
 
 class Schema extends AbstractPlugin implements PluginInterface
 {

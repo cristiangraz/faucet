@@ -1,11 +1,11 @@
 <?php
 
-namespace Mechanize\Plugins\Microformats;
+namespace Faucet\Plugins\Microformats;
 
-use Mechanize\Plugins\AbstractPlugin;
-use Mechanize\Plugins\PluginInterface;
+use Faucet\Plugins\AbstractPlugin;
+use Faucet\Plugins\PluginInterface;
 
-use Mechanize\Dom\Xpath\Expression;
+use Faucet\Dom\Xpath\Expression;
 
 class Hreview extends Microformat implements PluginInterface
 {

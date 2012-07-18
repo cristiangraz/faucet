@@ -1,10 +1,10 @@
 <?php
 
-namespace Mechanize\Tests;
+namespace Faucet\Tests;
 
-use Mechanize\Delay\ExactDelay;
-use Mechanize\Delay\NoDelay;
-use Mechanize\Delay\RandomDelay;
+use Faucet\Delay\ExactDelay;
+use Faucet\Delay\NoDelay;
+use Faucet\Delay\RandomDelay;
 
 class DelayTest extends \PHPUnit_Framework_TestCase
 {

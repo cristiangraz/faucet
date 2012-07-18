@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Faucet\Plugins;
 
 use Zend\Validator\Regex;
 
@@ -26,7 +26,7 @@ class Html extends AbstractPlugin implements PluginInterface
     /**
      * Helper method to get all links on the page
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function getLinks()
     {
@@ -36,7 +36,7 @@ class Html extends AbstractPlugin implements PluginInterface
     /**
      * Helper method to get all images on the page
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function getImages()
     {
@@ -46,7 +46,7 @@ class Html extends AbstractPlugin implements PluginInterface
     /**
      * Helper method to get all forms on the page
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function getForms()
     {
@@ -56,7 +56,7 @@ class Html extends AbstractPlugin implements PluginInterface
     /**
      * Helper method to get all javascript files on the page
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function getJavascript()
     {
@@ -67,7 +67,7 @@ class Html extends AbstractPlugin implements PluginInterface
      * Helper method to get all the stylesheets on the page
      * TODO: Grab @import stylesheets
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function getStylesheets()
     {

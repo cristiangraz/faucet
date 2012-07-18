@@ -1,4 +1,4 @@
 <?php
 
 $loader = require_once dirname(__DIR__) . '/bootstrap.php';
-$loader->add('Mechanize\Tests', __DIR__);
+$loader->add('Faucet\Tests', __DIR__);

@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize\Delay;
+namespace Faucet\Delay;
 
-use Mechanize\DelayInterface;
+use Faucet\DelayInterface;
 
 class RandomDelay implements DelayInterface
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Mechanize\Plugins\Pinterest;
+namespace Faucet\Plugins\Pinterest;
 
-use Mechanize\Plugins\AbstractPlugin;
-use Mechanize\Plugins\PluginInterface;
-use Mechanize\Plugins\Facebook\OpenGraph;
+use Faucet\Plugins\AbstractPlugin;
+use Faucet\Plugins\PluginInterface;
+use Faucet\Plugins\Facebook\OpenGraph;
 
 class Pin extends AbstractPlugin implements PluginInterface
 {
 	/**
 	 * Holds the OpenGraph plugin to parse og tags
 	 *
-	 * @var object Mechanize\Plugins\Facebook\OpenGraph;
+	 * @var object Faucet\Plugins\Facebook\OpenGraph;
 	 */
 	private $openGraph = null;
 

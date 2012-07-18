@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize\Dom;
+namespace Faucet\Dom;
 
-use Mechanize\Dom\Element;
+use Faucet\Dom\Element;
 
 use Zend\Validator\ValidatorChain;
 use Zend\Validator\ValidatorInterface;
@@ -10,7 +10,7 @@ use Zend\Validator\ValidatorInterface;
 class Elements implements \Iterator
 {
     /**
-     * An array of Mechanize\Dom\Element objects
+     * An array of Faucet\Dom\Element objects
      *
      * @var array
      */
@@ -30,11 +30,11 @@ class Elements implements \Iterator
     public function __construct() {}
     
     /**
-     * Adds a Mechanize\Dom\Element to the list of nodes
+     * Adds a Faucet\Dom\Element to the list of nodes
      *
-     * @param Mechanize\Dom\Element
+     * @param Faucet\Dom\Element
      *
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      **/
     public function addElement(Element $element) 
     {
@@ -88,7 +88,7 @@ class Elements implements \Iterator
      *
      * @param string
      * 
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      **/
     public function setText($value)
     {
@@ -105,8 +105,8 @@ class Elements implements \Iterator
      * @param string the attribute we are checking. _text is a special attribute that will use the node value
      * @param bool false|array|Zend\Validate. You can pass an array of Validators which will be turned into a chain, or pass in a validate chain directly
      * 
-     * @return object Mechanize\Dom\Elements. If no validator, the object is returned back to you. 
-     *      Otherwise, returns a new Mechanize\Elements object with the nodes that matched as elements.
+     * @return object Faucet\Dom\Elements. If no validator, the object is returned back to you. 
+     *      Otherwise, returns a new Faucet\Elements object with the nodes that matched as elements.
      **/
     public function validate($attr, $validator = false)
     {
@@ -139,7 +139,7 @@ class Elements implements \Iterator
     }
     
     /**
-     * Returns the array of Mechanize\Dom\Element objects
+     * Returns the array of Faucet\Dom\Element objects
      *
      * @return array
      **/
@@ -153,7 +153,7 @@ class Elements implements \Iterator
      *
      * @param string
      * 
-     * @return Mechanize\Dom\Element
+     * @return Faucet\Dom\Element
      **/
     public function getElement($index)
     {
@@ -165,7 +165,7 @@ class Elements implements \Iterator
      *
      * @param int $index
      *
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      */
     public function removeElement($index)
     {
@@ -180,7 +180,7 @@ class Elements implements \Iterator
     /**
      * Randomizes the order of the elements
      *
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      **/
     public function randomize()
     {
@@ -194,7 +194,7 @@ class Elements implements \Iterator
      *
      * @param int the limit
      * 
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      **/
     public function limit($limit)
     {
@@ -209,7 +209,7 @@ class Elements implements \Iterator
      * Example: To remove all meta tags:
      * $mech->find('/html/head/meta')->remove()
      *
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      */
     public function remove()
     {
@@ -226,7 +226,7 @@ class Elements implements \Iterator
      * @param string the attribute
      * @param bool whether or not the attribute contains urls
      * 
-     * @return Mechanize\Dom\Elements
+     * @return Faucet\Dom\Elements
      **/
     public function unique($attr, $isUrl = false) 
     {

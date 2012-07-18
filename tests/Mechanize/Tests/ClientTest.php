@@ -1,8 +1,8 @@
 <?php
 
-namespace Mechanize\Tests;
+namespace Faucet\Tests;
 
-use Mechanize\Client;
+use Faucet\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase
 {

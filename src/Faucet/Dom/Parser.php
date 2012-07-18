@@ -1,11 +1,11 @@
 <?php
 
-namespace Mechanize\Dom;
+namespace Faucet\Dom;
 
-use Mechanize\Dom\Elements;
-use Mechanize\Dom\Element;
-use Mechanize\Exception;
-use Mechanize\Dom\Xpath\Expression;
+use Faucet\Dom\Elements;
+use Faucet\Dom\Element;
+use Faucet\Exception;
+use Faucet\Dom\Xpath\Expression;
 
 use Guzzle\Http\Message\Response;
 
@@ -132,7 +132,7 @@ class Parser
     /**
      * Find any element on the page using an xpath selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function find($selector, $limit = -1, $context = false)
     {
@@ -142,7 +142,7 @@ class Parser
     /**
      * Convenience method to find any element on the page using an xpath selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function findOne($selector, $context = false)
     {
@@ -152,7 +152,7 @@ class Parser
     /**
      * Find any element on the page using a css selector selector
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function select($selector, $limit = -1, $context = false)
     {
@@ -170,7 +170,7 @@ class Parser
     /**
      * Convenience method to find any element on the page using a css selector but only return the first result
      *
-     * @return Mechanize/Elements
+     * @return Faucet/Elements
      **/
     public function selectOne($selector, $context = false)
     {

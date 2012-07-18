@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize;
+namespace Faucet;
 
 use Exception as BaseException;
 

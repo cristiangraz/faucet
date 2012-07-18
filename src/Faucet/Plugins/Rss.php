@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Plugins;
+namespace Faucet\Plugins;
 
 use Zend\Feed\Reader\Reader;
 

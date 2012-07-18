@@ -1,6 +1,6 @@
 <?php
 
-namespace Mechanize\Delay;
+namespace Faucet\Delay;
 
 class NoDelay implements DelayInterface
 {
