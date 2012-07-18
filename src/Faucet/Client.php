@@ -277,16 +277,48 @@ class Client
     }
 
     /**
-     * Fetches a url
-     * @todo Add header/extension logic to parse rss feeds and json
+     * Convenience method for get requests
      *
      * @param string $uri The uri to request
      * @param array $headers The headers to send with the request
      *
      * @return object Guzzle\Http\Message\Response
      */
-    public function get($uri, $headers = array())
+    public function get($uri, array $headers = array())
     {
+        return $this->request('GET', $uri, $headers);
+    }
+
+    /**
+     * Convenience method for post requests
+     *
+     * @param string $uri The uri to request
+     * @param array $headers The headers to send with the request
+     *
+     * @return object Guzzle\Http\Message\Response
+     */
+    public function post($uri, array $headers = array())
+    {
+        return $this->request('POST', $uri, $headers);
+    }
+
+    /**
+     * Fetches a url
+     *
+     * @param string $method The http method to use. get or post
+     * @param string $uri The uri to request
+     * @param array $headers The headers to send with the request
+     *
+     * @return object Guzzle\Http\Message\Response
+     */
+    public function request($method, $uri, array $headers = array())
+    {
+        $method = strtolower($method);
+
+        if (!in_array($method, array('get', 'post'))) {
+            throw new Exception('Invalid method "' . $method . '"');
+        }
+
         $this->delayStrategy->delay();
 
         if (!is_null($this->uri) && !isset($headers['Referer'])) {
@@ -302,7 +334,7 @@ class Client
         $headers = array_merge($this->headers, $headers);
 
         try {
-            $this->response = $this->httpClient->get($this->uri, $headers)->send();
+            $this->response = call_user_func_array(array($this->httpClient, $method), array($this->uri, $headers))->send();
         } catch (BadResponseException $e) {
             $this->response = $e->getResponse();
         }
@@ -400,7 +432,11 @@ class Client
     {
         $element = $this->parser->getElements($selector, 1);
 
-        return $this->get($this->parser->absoluteUrl($element->href));
+        if ($element->length === 1 && $element->getTag() === 'a') {
+            return $this->get($this->parser->absoluteUrl($element->href));
+        }
+
+        throw new Exception('Follow requires a valid link.');
     }
 
     /**
