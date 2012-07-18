@@ -18,7 +18,7 @@ class Schema extends AbstractPlugin implements PluginInterface
 	public function getSchemas()
 	{
 		// Create a clone of the original parser - getSchema() will remove nodes as they are found
-		$tempParser = clone $this->getParser();
+		$originalParser = clone $this->getParser();
 
 		$i=0;
 		while ($this->getSchema($i)) {
@@ -27,7 +27,7 @@ class Schema extends AbstractPlugin implements PluginInterface
 		}
 
 		// Revert back to the original Parser object
-		$this->setParser($tempParser);
+		$this->setParser($originalParser);
 
 		// Cleanup
 		foreach ($this->schemas as &$element) {
