@@ -45,6 +45,7 @@ if (false === $response->isSuccessful()) {
 ### Finding elements on the page
 
 ```php
+<?php
 
 // Using xpath: find() or findOne()
 $links = $client->find('//div[@id="wrapper"]/a');
@@ -68,6 +69,7 @@ foreach ($links as $link) {
 Validators allow you to validate attributes of the nodes using ``Zend\Validators``
 
 ```php
+<?php
 
 use Zend\Validator\Regex;
 
@@ -100,6 +102,8 @@ Faucet comes with a plugin architecture that makes scraping much faster/easier, 
  Plugins must contain an alias via a ``getAlias()`` method. You can then grab them like this:
 
  ```php
+ <?php
+
  $opengraph = $client->getPlugin('facebook.opengraph');
 
  echo $opengraph->getTag('og.video.width');
@@ -110,6 +114,7 @@ Faucet comes with a plugin architecture that makes scraping much faster/easier, 
 The schema plugin:
 
 ```php
+<?php
 
 $client->registerPlugins(array(
 	new Schema
@@ -128,6 +133,7 @@ print_r($schema->getSchemas());
  Sites are a type of plugin, but are different from normal plugins in that they are specific to certain sites only. Here's an example of how you would scrape Craigslist using the craigslist site:
 
  ```php
+<?php
 
 client = new Client;
 
@@ -161,6 +167,7 @@ foreach ($posts as $post) {
  Sometimes you need to grab section headings and elements, and associate each element with the correct heading that they are after. This is how the Craigslist site scraper works. Here's an example of how to use:
 
  ```php
+<?php
 
 // Creates this Xpath: //h4[@class="ban"] | //p[@class="row"]
 // Will select BOTH h4.ban nodes and p.row nodes
@@ -186,6 +193,9 @@ foreach ($elements as $element) {
 
  If you want to filter out your data as you grab it, you can use Zend\Filters
 
+ ```php
+ <?php
+
 $elements = $this->select('p.title');
 
 foreach ($elements as $element) {
@@ -194,13 +204,14 @@ foreach ($elements as $element) {
 		new Zend\Filter\StripNewlines
 	));
 }
-
+```
 
 ### Removing elements from the DOM
 
 If you are scraping a site and want the site's html, but first need to strip out all meta tags (for example)
 
 ```php
+<?php
 
 $client->get('http://www.example.com');
 
