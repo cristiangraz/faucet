@@ -165,7 +165,7 @@ foreach ($posts as $post) {
 
  ```
 
- ### And Selectors
+### And Selectors
 
 Sometimes you need to grab section headings and elements, and associate each element with the correct heading that they are after. This is how the Craigslist site scraper works. Here's an example of how to use:
 
@@ -193,7 +193,7 @@ foreach ($elements as $element) {
  }
 ```
 
- ### Using Filters
+### Using Filters
 
 If you want to filter out your data as you grab it, you can use Zend\Filters
 
