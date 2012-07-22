@@ -205,11 +205,11 @@ class Parser
      **/
     public function getAbsoluteUrl($url)
     {
-        if (false !== preg_match('#^https?://#', $url)) {
+        if (1 === preg_match('#^https?://#', $url)) {
             return $url;
         } elseif (substr($url, 0, 2) == '//') {
             // Path is absolute but relative to the url scheme
-            return $this->scheme . $url;
+            return $this->domainRoot . substr($url, 1);
         } elseif (substr($url, 0, 1) == '/') {
             // Path is relative to website root. $src already contains a slash separator
             return $this->domainRoot . $url;
