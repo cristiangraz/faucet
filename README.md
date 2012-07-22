@@ -79,13 +79,13 @@ use Zend\Validator\Regex;
 // Faucet\Dom\Elements has a validate() method that takes the attribute and an array of validators
 $links = $client->find('//div[@id="wrapper"]/a')
 				->validate('href', array(
-					new Zend\Validate\Regex('#^https?://#')
+					new Zend\Validator\Regex('#^https?://#')
 				));
 
 // Can also validate text using _text
 $links = $client->find('//div[@id="wrapper"]/a')
 				->validate('_text', array(
-					new Zend\Validate\Regex('#^https?://#')
+					new Zend\Validator\Regex('#^https?://#')
 				));
 
 ```
@@ -109,7 +109,7 @@ Faucet comes with a plugin architecture that makes scraping much faster/easier, 
  echo $opengraph->getTag('og.video.width');
  ```
 
- Each plugin has access to the ``Faucet\Dom\Parser``, so all of the logic to parse common types of pages/elements can be contained within your plugin. To use your plugin, you have to register it with the Faucet Client using ``registerPlugins()``
+Each plugin has access to the ``Faucet\Dom\Parser`` object, so all of the logic to parse common types of pages/elements can be contained within your plugin. To use your plugin, you have to register it with the Faucet Client using ``registerPlugins()``
 
 The schema plugin:
 
@@ -135,7 +135,10 @@ print_r($schema->getSchemas());
  ```php
 <?php
 
-client = new Client;
+use Mechanize\Client;
+use Mechanize\Plugins\Sites\Craigslist;
+
+$client = new Client;
 
 // Register the plugin
 $client->registerPlugins(array(
@@ -162,7 +165,7 @@ foreach ($posts as $post) {
 
  ```
 
- ## And Selectors
+ ### And Selectors
 
  Sometimes you need to grab section headings and elements, and associate each element with the correct heading that they are after. This is how the Craigslist site scraper works. Here's an example of how to use:
 
@@ -188,6 +191,7 @@ foreach ($elements as $element) {
 		'href' => $client->getAbsoluteUrl($element->href)
 	);
  }
+```
 
  ### Using Filters
 
