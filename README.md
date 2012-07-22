@@ -99,7 +99,7 @@ Faucet comes with a plugin architecture that makes scraping much faster/easier, 
  - ``SEO``: Provides information on follow/nofollow links, whether or not a page is indexable, etc
  - ``OpenGraph``: Parses Facebook Opengraph tags
 
- Plugins must contain an alias via a ``getAlias()`` method. You can then grab them like this:
+Plugins must contain an alias via a ``getAlias()`` method. You can then grab them like this:
 
  ```php
  <?php
@@ -111,7 +111,7 @@ Faucet comes with a plugin architecture that makes scraping much faster/easier, 
 
 Each plugin has access to the ``Faucet\Dom\Parser`` object, so all of the logic to parse common types of pages/elements can be contained within your plugin. To use your plugin, you have to register it with the Faucet Client using ``registerPlugins()``
 
-The schema plugin:
+#### The schema plugin:
 
 ```php
 <?php
@@ -128,9 +128,9 @@ print_r($schema->getSchemas());
 ```
 
 
-### Site "plugins"
+#### Site "plugins"
 
- Sites are a type of plugin, but are different from normal plugins in that they are specific to certain sites only. Here's an example of how you would scrape Craigslist using the craigslist site:
+Sites are a type of plugin, but are different from normal plugins in that they are specific to certain sites only. Here's an example of how you would scrape Craigslist using the craigslist site:
 
  ```php
 <?php
@@ -167,7 +167,7 @@ foreach ($posts as $post) {
 
  ### And Selectors
 
- Sometimes you need to grab section headings and elements, and associate each element with the correct heading that they are after. This is how the Craigslist site scraper works. Here's an example of how to use:
+Sometimes you need to grab section headings and elements, and associate each element with the correct heading that they are after. This is how the Craigslist site scraper works. Here's an example of how to use:
 
  ```php
 <?php
@@ -195,7 +195,7 @@ foreach ($elements as $element) {
 
  ### Using Filters
 
- If you want to filter out your data as you grab it, you can use Zend\Filters
+If you want to filter out your data as you grab it, you can use Zend\Filters
 
  ```php
  <?php
