@@ -1,0 +1,22 @@
+{
+	"name": "cristiangraz/faucet",
+	"description": "A plugin-driven web scraping library written in PHP.",
+	"homepage": "https://github.com/cristiangraz/faucet",
+	"type": "library",
+	"require": {
+		"php": ">=5.3.0",
+		"guzzle/guzzle": "2.7.2",
+		"symfony/css-selector": "2.0.*",
+		"zendframework/zend-filter": "2.0.*",
+		"zendframework/zend-validator": "2.0.*"
+	},
+	"autoload": {
+		"psr-0": { "Faucet": "src/" }
+	},
+	"repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.zendframework.com/"
+        }
+    ]
+}

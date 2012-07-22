@@ -1,4 +1,4 @@
-mechanize
+Faucet
 =========
 
-PHP library inspired/modeled after Andy Lester's WWW::Mechanize for Perl.
+A plugin-driven web scraping library written in PHP.
