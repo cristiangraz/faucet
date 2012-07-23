@@ -185,7 +185,7 @@ class Element
      */
     public function getHtml($filterChain = false)
     {
-        $dom = new DOMDocument;
+        $dom = new \DOMDocument;
         $dom->appendChild($dom->importNode($this->getElement(), true));
 
         return $this->filter($dom->saveHTML(), $filterChain);
