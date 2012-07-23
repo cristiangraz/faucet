@@ -53,6 +53,9 @@ $links = $client->find('//div[@id="wrapper"]/a');
 // Using css selectors: select() or selectOne()
 $links = $client->select('div#wrapper a');
 
+// The length attribute on Faucet\Dom\Elements always has the number of nodes returned
+echo 'Links Found: ' . $links->length . '<br /><br />';
+
 // Links is a Faucet\Dom\Elements object, but it implements the Iterator interface
 foreach ($links as $link) {
 	// $link is a Faucet\Dom\Element object
@@ -60,6 +63,22 @@ foreach ($links as $link) {
 
 	// You can also access attributes as object properties
 	echo '<a href="' . $link->href . '">' . $link->getText() . '</a>';
+}
+
+```
+
+### Searching within the context of a node
+
+```php
+<?php
+
+$divs = $client->select('div.items');
+
+foreach ($divs as $div) {
+	// $div - the Faucet\Dom\Element object - supports all of the find/select methods within the context of itself
+	$title = $div->findOne('h4')->getText();
+
+	// ... more code here
 }
 
 ```
@@ -77,13 +96,13 @@ use Zend\Validator\Regex;
 
 
 // Faucet\Dom\Elements has a validate() method that takes the attribute and an array of validators
-$links = $client->find('//div[@id="wrapper"]/a')
+$links = $client->select('div#wrapper a')
 				->validate('href', array(
 					new Zend\Validator\Regex('#^https?://#')
 				));
 
 // Can also validate text using _text
-$links = $client->find('//div[@id="wrapper"]/a')
+$links = $client->select('div#wrapper a')
 				->validate('_text', array(
 					new Zend\Validator\Regex('#^https?://#')
 				));
